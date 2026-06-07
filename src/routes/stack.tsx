@@ -18,11 +18,11 @@ export const Route = createFileRoute("/stack")({
 });
 
 const groups = [
-  { id: "frontend", label: "FRONTEND", x: 15, y: 30, items: ["React", "Next.js", "TypeScript", "JavaScript", "HTML/CSS"] },
-  { id: "backend", label: "BACKEND", x: 85, y: 30, items: ["Node.js", "Express", "Python"] },
-  { id: "db", label: "DATABASE", x: 15, y: 75, items: ["PostgreSQL", "MongoDB"] },
-  { id: "tools", label: "FERRAMENTAS", x: 85, y: 75, items: ["Git", "Vercel", "Ploomes"] },
-  { id: "core", label: "CORE SKILLS", x: 50, y: 52, items: ["Integrações", "REST APIs", "Lógica"], center: true },
+  { id: "frontend", label: "FRONTEND", x: 15, y: 30, items: ["React & Ecossistema", "TypeScript Avançado", "SSR / Edge Computing", "Arquitetura de UI"] },
+  { id: "backend", label: "BACKEND", x: 85, y: 30, items: ["Node.js & Python", "Processamento Assíncrono", "APIs de Alta Performance", "Engenharia de Dados"] },
+  { id: "ai", label: "IA & COMPUTER VISION", x: 15, y: 75, items: ["Visão Computacional", "Machine Learning", "PyTorch / Ecossistema YOLO", "Pipelines de Inferência"] },
+  { id: "infra", label: "INFRA & DATABASE", x: 85, y: 75, items: ["PostgreSQL (Relacional)", "Redis (Mensageria / Cache)", "Docker & Containers", "Serverless & Deployments"] },
+  { id: "core", label: "CORE SKILLS", x: 50, y: 52, items: ["Arquitetura de Software", "Sistemas Distribuídos", "Regras de Negócio"], center: true },
 ];
 
 function StackPage() {

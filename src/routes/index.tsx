@@ -54,8 +54,8 @@ const categories = [
   },
   {
     title: "Automação & Integrações",
-    desc: "JavaScript no Ploomes, integrações via API e Google Sheets.",
-    items: ["Ploomes CRM", "Google Sheets", "CPQ", "Integrações Webhooks"],
+    desc: "Automações customizadas, integrações via API e manipulação de dados.",
+    items: ["Integração de Sistemas", "Google Sheets", "Regras de Negócio", "Webhooks"],
     tech: ["JavaScript", "APIs", "Webhooks"],
     accent: "accent" as const,
   },
@@ -87,9 +87,9 @@ function Home() {
               </Reveal>
               <Reveal delay={0.12}>
                 <p className="mt-8 max-w-[50ch] text-lg text-muted-foreground text-pretty">
-                  Com um background único em Direito e experiência em otimização de processos de CRM, 
-                  une lógica de negócio apurada à expertise técnica em Python e JavaScript/TypeScript.
-                  Busca aplicar sua visão estratégica e <i>ownership</i> em projetos desafiadores.
+                  Minha evolução na engenharia de software é guiada pela paixão em resolver problemas do mundo real através de arquiteturas sólidas e inovação contínua.
+                  <br/><br/>
+                  Hoje, atuo de ponta a ponta: desde a modelagem de sistemas ERP complexos para operações industriais até a integração de pipelines de Inteligência Artificial e Visão Computacional. Com profundo domínio de backend (Node/Python) e extrema adaptabilidade para dominar novas tecnologias, minha motivação é projetar arquiteturas resilientes e resolver desafios de alta complexidade.
                   <br/><br/>
                   📍 Londrina, PR · Disponível para oportunidades
                 </p>

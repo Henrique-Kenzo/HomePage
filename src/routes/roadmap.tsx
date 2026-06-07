@@ -18,7 +18,7 @@ export const Route = createFileRoute("/roadmap")({
 });
 
 const trail = [
-  { id: "PLN", label: "Pleno Inicial", year: "Agora", state: "current", desc: "Aprimorando TS avançado, focando em performance no Next.js e aplicando padrões robustos em Node.js." },
+  { id: "DEV", label: "Desenvolvedor", year: "Agora", state: "current", desc: "Aprimorando TS avançado, focando em performance no Next.js e aplicando padrões robustos em Node.js." },
   { id: "MID", label: "3–6 meses", year: "Curto prazo", state: "next", desc: "Docker, CI/CD (GitHub Actions), implementação de testes automatizados e refatoração com design patterns." },
   { id: "ADV", label: "6–12 meses", year: "Médio prazo", state: "done", desc: "Aprofundamento em Cloud (AWS/GCP), microsserviços e observabilidade de sistemas em produção." },
   { id: "LDR", label: "12+ meses", year: "Longo prazo", state: "done", desc: "Desenvolvimento de liderança técnica, segurança avançada e mentoria de novos desenvolvedores." },

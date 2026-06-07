@@ -42,8 +42,8 @@ const cats = [
   {
     title: "Automação & Integrações",
     sub: "Conectando sistemas e otimizando fluxos comerciais.",
-    items: ["Customizações no Ploomes CRM via JS", "Integrações via APIs Rest", "Automação com Google Sheets", "Configuração de CPQ"],
-    tech: ["JavaScript", "APIs", "Ploomes", "Google Sheets"],
+    items: ["Customizações de Sistemas via JS", "Integrações via APIs REST", "Automação de Processos", "Regras de Negócio Complexas"],
+    tech: ["JavaScript", "APIs", "Integrações", "Google Sheets"],
     color: "accent",
   },
 ] as const;

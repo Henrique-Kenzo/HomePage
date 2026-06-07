@@ -21,10 +21,10 @@ const stages = [
   { id: "01", title: "Vikstar (Consultor PJ)", desc: "Primeiros passos no mercado corporativo, atuando em atendimento.", tech: ["Comunicação", "Resolução de conflitos"] },
   { id: "02", title: "Sniper Londrina", desc: "Gestão e operação.", tech: ["Operação", "Gestão"] },
   { id: "03", title: "Alô Telemarketing", desc: "Suporte e atendimento contínuo.", tech: ["Atendimento"] },
-  { id: "04", title: "Formação em Direito", desc: "Bacharelado pela Universidade Estadual de Londrina (UEL). Desenvolveu capacidade analítica e de argumentação.", tech: ["Pesquisa", "Lógica"] },
+  { id: "04", title: "Estudos em Direito", desc: "Curso interrompido na UEL. Período onde desenvolvi forte base analítica, até o momento em que o interesse por código se transformou em uma ambição técnica irrefreável.", tech: ["Pesquisa", "Lógica"] },
   { id: "05", title: "Arbo (Analista de Suporte)", desc: "Transição para tecnologia, utilizando SQL e HTML para suporte a sistemas complexos.", tech: ["SQL", "HTML", "Troubleshooting"] },
-  { id: "06", title: "Implementador CRM", desc: "Na Sunhub e MX3, implementando soluções e automações via Ploomes (JS/HTML/CSS).", tech: ["Ploomes", "JS", "CPQ", "APIs"] },
-  { id: "07", title: "Desenvolvedor Full Stack", desc: "Na minhafabrica.com, construindo sistemas full-stack escaláveis com stack moderna.", tech: ["React", "Node.js", "Python"], accent: true },
+  { id: "06", title: "Implementador CRM", desc: "Na Sunhub e MX3, desenvolvendo soluções customizadas, automações e integrações focadas em vendas e processos (JS/HTML/CSS).", tech: ["Sistemas", "JS", "Integrações", "APIs"] },
+  { id: "07", title: "Engenheiro de Software", desc: "Desenvolvendo sistemas industriais críticos (minhafabrica.com e VisionProd). Arquitetando o backend de ERPs com regras de negócio complexas e integrando modelos de Machine Learning (Visão Computacional) para processamento de câmeras em linhas de produção.", tech: ["Node.js", "Python", "Machine Learning", "ERP"], accent: true },
 ];
 
 function SobrePage() {
@@ -42,7 +42,7 @@ function SobrePage() {
                 até a <span className="text-primary italic">engenharia.</span>
               </h1>
               <p className="mt-8 max-w-2xl text-lg text-muted-foreground text-pretty">
-                Do Direito à Tecnologia: a capacidade de aprender rápido e migrar de área foi o grande diferencial na minha evolução como desenvolvedor.
+                Dos estudos em Direito à obsessão por criar software: a capacidade de aprender rápido e o desejo incansável por maestria técnica são os motores da minha evolução na engenharia.
               </p>
             </Reveal>
           </div>
@@ -84,9 +84,9 @@ function SobrePage() {
         <section className="px-6 py-24 border-t border-border bg-white/[0.015]">
           <div className="mx-auto max-w-6xl">
             <Reveal>
-              <SectionLabel accent="accent">Por que isso importa</SectionLabel>
+              <SectionLabel accent="accent">O diferencial</SectionLabel>
               <h2 className="font-display text-4xl md:text-5xl mb-12">
-                Transformando suporte e CRM em um <span className="text-accent italic">diferencial técnico.</span>
+                Visão de negócio aliada a uma <span className="text-accent italic">fome por excelência técnica.</span>
               </h2>
             </Reveal>
 
