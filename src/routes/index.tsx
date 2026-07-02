@@ -1,268 +1,585 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { BackgroundFX } from "@/components/site/BackgroundFX";
-import { SiteHeader } from "@/components/site/SiteHeader";
-import { SiteFooter } from "@/components/site/SiteFooter";
-import { NeuralHero } from "@/components/site/NeuralHero";
-import { SectionLabel } from "@/components/site/SectionLabel";
-import { Reveal } from "@/components/site/Reveal";
-import heroImg from "@/assets/neural-hero.jpg";
-import dashImg from "@/assets/minhafabrica-dashboard.png";
-import { projects } from "@/content/projects";
+import { FxNeural } from "@/components/site/FxNeural";
+import { seo, PERSON } from "@/lib/site";
+import minhafabricaImg from "@/assets/minhafabrica-dashboard.png";
+import visionprodImg from "@/assets/visionprod-dashboard.jpg";
 
 export const Route = createFileRoute("/")({
-  head: () => ({
-    meta: [
-      { title: "Henrique Kenzo Silvatte — Desenvolvedor de Software" },
-      {
-        name: "description",
-        content:
-          "Construindo sistemas que transformam processos comerciais em operações automatizadas. Node.js · TypeScript · Python.",
-      },
-      { property: "og:title", content: "Henrique Kenzo Silvatte — Desenvolvedor de Software" },
-      {
-        property: "og:description",
-        content: "Construindo sistemas que transformam processos comerciais em operações automatizadas.",
-      },
-      { property: "og:image", content: heroImg },
-      { name: "twitter:image", content: heroImg },
-    ],
-  }),
+  head: () =>
+    seo({
+      title: "Henrique Kenzo — Desenvolvedor Full-Stack · Sistemas, IA e Software | kenzo.dev",
+      description:
+        "Henrique Kenzo Silvatte (kenzo.dev) — desenvolvedor de software full-stack em Londrina-PR. Sistemas web, ERPs industriais, automação, integrações e IA com visão computacional. Node.js, Python, TypeScript e React.",
+      path: "/",
+    }),
   component: Home,
 });
 
-const categories = [
+const navLinks = [
+  { href: "#sistemas", label: "./sistemas" },
+  { href: "#lab", label: "./lab" },
+  { href: "#stack", label: "./stack" },
+  { href: "#processo", label: "./processo" },
+];
+
+const manifesto = [
+  { n: "/01", text: <>Sistemas devem trabalhar sozinhos.</> },
+  { n: "/02", text: <>Interfaces devem responder.</> },
   {
-    title: "Back-end & APIs",
-    desc: "Node.js, Express, Python, REST e autenticação JWT.",
-    items: ["Node.js", "Express", "Python", "REST APIs"],
-    tech: ["Node.js", "Python", "JWT"],
-    accent: "primary" as const,
+    n: "/03",
+    text: (
+      <>
+        Código deve <span className="text-neon">durar.</span>
+      </>
+    ),
+  },
+];
+
+const labs = [
+  {
+    spec: "spec/01 · redes",
+    title: "BillsMap",
+    hipotese: "dá para entender o Nmap por baixo dos panos reimplementando-o.",
+    metodo: "scanner de portas com Python Asyncio e sockets crus.",
+    aprendizado: "concorrência assíncrona aplicada a varredura de redes corporativas.",
+    tags: ["Python", "Asyncio", "Sockets"],
   },
   {
-    title: "Front-end",
-    desc: "Aplicações dinâmicas com React e Next.js App Router.",
-    items: ["React", "Next.js", "TypeScript", "HTML/CSS"],
-    tech: ["React", "Next.js", "TypeScript"],
-    accent: "primary" as const,
+    spec: "spec/02 · automação",
+    title: "Mini-CRM",
+    hipotese: "um time comercial consegue operar um CRM dentro do Google Sheets.",
+    metodo: "Sheets como banco ágil, integrado via API com scripts Python.",
+    aprendizado: "integração de APIs externas e desenho de fluxo para usuários não-técnicos.",
+    tags: ["Python", "Sheets API", "Google Cloud"],
   },
   {
-    title: "Bancos de Dados",
-    desc: "Modelagem e persistência segura em NoSQL e relacional.",
-    items: ["MongoDB", "PostgreSQL", "SQL"],
-    tech: ["MongoDB", "PostgreSQL", "SQL"],
-    accent: "accent" as const,
+    spec: "spec/03 · front-end",
+    title: "Landing Page React",
+    hipotese: "componentização bem feita acelera qualquer interface de conversão.",
+    metodo: "landing responsiva em React com padrões de componentização.",
+    aprendizado: "arquitetura de componentes e performance percebida.",
+    tags: ["React", "HTML", "CSS"],
   },
   {
-    title: "Automação & Integrações",
-    desc: "Automações customizadas, integrações via API e manipulação de dados.",
-    items: ["Integração de Sistemas", "Google Sheets", "Regras de Negócio", "Webhooks"],
-    tech: ["JavaScript", "APIs", "Webhooks"],
-    accent: "accent" as const,
+    spec: "spec/04 · front-end",
+    title: "LinkTree 0.1",
+    hipotese: "uma página útil pode pesar quase nada.",
+    metodo: "agregador de links em HTML e CSS puros, mobile-first.",
+    aprendizado: "performance como restrição de design, não otimização posterior.",
+    tags: ["HTML", "CSS"],
+  },
+];
+
+const clusters = [
+  {
+    title: "backend & apis",
+    items: ["Node.js · Express", "Python · FastAPI", "REST APIs", "Autenticação JWT"],
+  },
+  { title: "front-end", items: ["React · Next.js", "TypeScript", "HTML / CSS", "Design responsivo"] },
+  { title: "dados", items: ["MongoDB", "PostgreSQL", "SQL · modelagem", "Persistência segura"] },
+  {
+    title: "automação & ia",
+    items: ["Integrações via API", "Webhooks", "Visão computacional", "Pipelines de IA"],
+  },
+];
+
+const processo = [
+  {
+    step: "01 descobrir",
+    text: "Entendo o processo real antes do código. O problema certo vale mais que a solução elegante.",
+    border: "border-neon",
+  },
+  {
+    step: "02 modelar",
+    text: "Arquitetura, dados e regras de negócio no papel. Camadas claras: controllers, services, models.",
+    border: "border-neon/50",
+  },
+  {
+    step: "03 construir",
+    text: "Entregas curtas, deploy cedo. Sistema em produção ensina mais que sistema em staging.",
+    border: "border-neon/30",
+  },
+  {
+    step: "04 medir",
+    text: "O que o sistema economizou, automatizou ou destravou. Sem número, não acabou.",
+    border: "border-neon/15",
   },
 ];
 
 function Home() {
-  const featured = projects[0];
   return (
-    <>
-      <BackgroundFX />
+    <div className="relative min-h-screen bg-ink font-grotesk text-paper">
+      {/* REDE VIVA — fundo fixo, reage a mouse e clique na página inteira */}
+      <div className="fixed inset-0 z-0" aria-hidden>
+        <FxNeural />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_30%_40%,transparent_30%,rgba(7,9,7,0.55)_100%)]" />
+      </div>
+
       <div className="relative z-10">
-        <SiteHeader />
+        {/* NAV */}
+        <header className="sticky top-0 z-10 flex items-center gap-9 border-b border-white/[0.06] bg-ink/70 px-6 py-5 backdrop-blur-xl md:px-12">
+          <a href="#topo" className="font-mono text-[15px] font-bold text-paper no-underline">
+            kenzo<span className="text-neon">.dev</span>
+          </a>
+          <nav className="ml-auto flex items-center gap-7" aria-label="Navegação principal">
+            {navLinks.map((l) => (
+              <a
+                key={l.href}
+                href={l.href}
+                className="hidden font-mono text-[11px] tracking-[0.18em] text-paper/60 transition-colors hover:text-neon md:inline"
+              >
+                {l.label}
+              </a>
+            ))}
+            <Link
+              to="/sobre"
+              className="hidden font-mono text-[11px] tracking-[0.18em] text-paper/60 transition-colors hover:text-neon md:inline"
+            >
+              ./sobre
+            </Link>
+            <a
+              href="#contato"
+              className="bg-neon px-4 py-2.5 font-mono text-[11px] font-bold tracking-[0.14em] text-ink transition-colors hover:bg-neon-bright"
+            >
+              iniciar_conexao()
+            </a>
+          </nav>
+        </header>
 
-        {/* HERO */}
-        <section className="relative px-6">
-          <div className="mx-auto grid min-h-[calc(100vh-64px)] max-w-7xl items-center gap-12 py-16 lg:grid-cols-2">
-            <div>
-              <Reveal>
-                <span className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.25em] text-primary">
-                  <span className="size-1.5 rounded-full bg-primary animate-pulse-soft" />
-                  Engenharia de próxima geração
+        <main>
+          {/* HERO */}
+          <section id="topo" className="flex min-h-[calc(100vh-73px)] flex-col px-6 md:px-12">
+            <div className="mx-auto flex w-full max-w-[1200px] flex-1 flex-col justify-center gap-7 py-16">
+              <div className="animate-fade-up inline-flex items-center gap-2 self-start border border-neon/35 px-3.5 py-[7px]">
+                <span className="animate-blinkdot size-1.5 rounded-full bg-neon" />
+                <span className="font-mono text-[10px] uppercase tracking-[0.28em] text-neon">
+                  rede ativa · londrina-pr · disponível
                 </span>
-              </Reveal>
-              <Reveal delay={0.05}>
-                <h1 className="font-display mt-8 text-5xl leading-[0.95] text-balance md:text-6xl">
-                  Transformando desafios de negócio em <br />
-                  <span className="italic text-primary">soluções escaláveis.</span>
-                </h1>
-              </Reveal>
-              <Reveal delay={0.12}>
-                <p className="mt-8 max-w-[50ch] text-lg text-muted-foreground text-pretty">
-                  Minha evolução na engenharia de software é guiada pela paixão em resolver problemas do mundo real através de arquiteturas sólidas e inovação contínua.
-                  <br/><br/>
-                  Hoje, atuo de ponta a ponta: desde a modelagem de sistemas ERP complexos para operações industriais até a integração de pipelines de Inteligência Artificial e Visão Computacional. Com profundo domínio de backend (Node/Python) e extrema adaptabilidade para dominar novas tecnologias, minha motivação é projetar arquiteturas resilientes e resolver desafios de alta complexidade.
-                  <br/><br/>
-                  📍 Londrina, PR · Disponível para oportunidades
-                </p>
-              </Reveal>
-              <Reveal delay={0.18}>
-                <div className="mt-10 flex flex-wrap gap-4">
-                  <Link
-                    to="/projetos"
-                    className="group relative overflow-hidden bg-foreground px-7 py-4 text-sm font-bold uppercase tracking-[0.2em] text-background ring-1 ring-white/10 transition-all hover:bg-primary hover:text-white"
-                  >
-                    Ver Projetos
-                    <span className="ml-2 inline-block transition-transform group-hover:translate-x-1">→</span>
-                  </Link>
-                  <Link
-                    to="/contato"
-                    className="border border-border px-7 py-4 text-sm font-bold uppercase tracking-[0.2em] transition-colors hover:border-primary hover:text-primary"
-                  >
-                    Agendar Conversa
-                  </Link>
-                </div>
-              </Reveal>
-              <Reveal delay={0.3}>
-                <div className="mt-14 grid max-w-md grid-cols-3 gap-6 border-t border-border pt-6">
-                  {[
-                    { k: "5+", v: "PROJETOS" },
-                    { k: "100%", v: "COMPROMETIDO" },
-                    { k: "∞", v: "CURIOSIDADE" },
-                  ].map((s) => (
-                    <div key={s.v}>
-                      <div className="font-mono text-2xl text-foreground">{s.k}</div>
-                      <div className="font-mono text-[9px] uppercase tracking-[0.2em] text-muted">{s.v}</div>
-                    </div>
-                  ))}
-                </div>
-              </Reveal>
+              </div>
+              <h1
+                className="animate-fade-up m-0 max-w-[14ch] text-[clamp(48px,6.5vw,92px)] font-bold leading-none tracking-[-0.03em]"
+                style={{ animationDelay: "0.08s" }}
+              >
+                Eu não faço páginas. Eu construo <span className="text-neon">sistemas vivos.</span>
+              </h1>
+              <p
+                className="animate-fade-up m-0 max-w-[52ch] text-[19px] leading-[1.6] text-paper/60"
+                style={{ animationDelay: "0.16s" }}
+              >
+                Henrique Kenzo · engenharia full-stack. ERPs industriais, pipelines de IA e visão
+                computacional, integrações que trabalham enquanto você dorme. Node, Python e React — do banco
+                ao pixel.
+              </p>
+              <div className="animate-fade-up flex flex-wrap gap-3.5" style={{ animationDelay: "0.24s" }}>
+                <a
+                  href="#sistemas"
+                  className="inline-block bg-neon px-7 py-4 font-mono text-[13px] font-bold text-ink transition-all hover:bg-neon-bright hover:shadow-[0_0_34px_rgba(182,243,74,0.45)]"
+                >
+                  acessar_rede()
+                </a>
+                <a
+                  href="#contato"
+                  className="inline-block border border-paper/25 px-7 py-4 font-mono text-[13px] text-paper transition-colors hover:border-neon hover:text-neon"
+                >
+                  transmitir_mensagem()
+                </a>
+              </div>
             </div>
-            <Reveal delay={0.1}>
-              <NeuralHero />
-            </Reveal>
-          </div>
-        </section>
+            <div className="mx-auto flex w-full max-w-[1200px] items-center pb-[26px]">
+              <span className="font-mono text-[10px] tracking-[0.18em] text-paper/35">
+                LAT -23.3103 · LON -51.1628 · nó: hero/01 · sinapses: 118
+              </span>
+              <span className="ml-auto hidden font-mono text-[10px] tracking-[0.18em] text-neon/60 md:inline">
+                mova o mouse · clique para propagar um pulso · scroll ↓
+              </span>
+            </div>
+          </section>
 
-        {/* CAPABILITIES */}
-        <section className="relative border-t border-border px-6 py-32">
-          <div className="mx-auto max-w-7xl">
-            <Reveal>
-              <SectionLabel>O que eu construo</SectionLabel>
-              <h2 className="font-display max-w-3xl text-4xl md:text-5xl">
-                Sistemas, automações e inteligência — projetados para escalar.
-              </h2>
-            </Reveal>
-            <div className="mt-16 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-              {categories.map((c, i) => (
-                <Reveal key={c.title} delay={i * 0.05}>
-                  <div className="group relative h-full overflow-hidden border border-border bg-white/[0.015] p-6 transition-colors hover:border-primary/40">
-                    <div className={`size-9 ${c.accent === "primary" ? "bg-primary/15 text-primary" : "bg-accent/15 text-accent"} grid place-items-center mb-6`}>
-                      <span className="size-3 rounded-sm bg-current" />
-                    </div>
-                    <h3 className="font-display text-xl mb-3">{c.title}</h3>
-                    <p className="text-sm text-muted-foreground mb-6">{c.desc}</p>
-                    <ul className="space-y-1.5 mb-6">
-                      {c.items.map((it) => (
-                        <li key={it} className="font-mono text-[11px] text-foreground/80 flex items-center gap-2">
-                          <span className="size-1 bg-muted" /> {it}
-                        </li>
-                      ))}
-                    </ul>
-                    <div className="flex flex-wrap gap-1.5 border-t border-border pt-4">
-                      {c.tech.map((t) => (
-                        <span key={t} className="font-mono text-[9px] uppercase tracking-widest text-muted-foreground bg-white/5 px-2 py-0.5">{t}</span>
-                      ))}
-                    </div>
+          {/* MANIFESTO */}
+          <section className="border-t border-white/[0.07] px-6 py-[140px] md:px-12">
+            <div className="mx-auto flex max-w-[1200px] flex-col gap-12">
+              <div className="font-mono text-[11px] uppercase tracking-[0.3em] text-neon">manifesto</div>
+              <div className="flex flex-col gap-9">
+                {manifesto.map((m) => (
+                  <div key={m.n} className="grid grid-cols-[60px_1fr] items-baseline gap-6">
+                    <span className="font-mono text-sm text-neon/70">{m.n}</span>
+                    <span className="text-[clamp(32px,4vw,56px)] font-bold leading-[1.1] tracking-[-0.02em]">
+                      {m.text}
+                    </span>
                   </div>
-                </Reveal>
-              ))}
+                ))}
+              </div>
             </div>
-            <div className="mt-10">
-              <Link to="/construo" className="font-mono text-[11px] uppercase tracking-[0.25em] text-muted-foreground hover:text-primary">
-                Ver detalhe completo →
+          </section>
+
+          {/* SISTEMAS */}
+          <section id="sistemas" className="border-t border-white/[0.07] px-6 py-[120px] md:px-12">
+            <div className="mx-auto flex max-w-[1200px] flex-col gap-14">
+              <div className="flex flex-col gap-3.5">
+                <div className="font-mono text-[11px] uppercase tracking-[0.3em] text-neon">
+                  ./sistemas — cases reais
+                </div>
+                <h2 className="m-0 max-w-[20ch] text-[clamp(34px,4vw,52px)] font-bold tracking-[-0.02em]">
+                  Sistemas em produção, de ponta a ponta.
+                </h2>
+              </div>
+
+              {/* CASE 01 */}
+              <article className="grid items-center gap-12 border border-white/[0.08] bg-white/[0.015] p-6 transition-colors hover:border-neon/40 md:p-10 lg:grid-cols-[5fr_7fr]">
+                <div className="flex flex-col gap-[18px]">
+                  <div className="font-mono text-[11px] tracking-[0.25em] text-neon/80">
+                    case/01 · full-stack web
+                  </div>
+                  <h3 className="m-0 text-[34px] font-bold tracking-[-0.02em]">MinhaFabrica</h3>
+                  <div className="grid grid-cols-[96px_1fr] gap-x-4 gap-y-2 text-sm leading-[1.6]">
+                    <CaseLabel>problema</CaseLabel>
+                    <span className="text-paper/75">
+                      Operação industrial sem visibilidade centralizada de usuários, produtos e processos.
+                    </span>
+                    <CaseLabel>solução</CaseLabel>
+                    <span className="text-paper/75">
+                      Painel administrativo completo com autenticação JWT, CRUD de usuários e produtos,
+                      backend e frontend separados por responsabilidade.
+                    </span>
+                    <CaseLabel>arquitetura</CaseLabel>
+                    <span className="text-paper/75">
+                      Controllers → services → models · API Node.js · interface Next.js · MongoDB.
+                    </span>
+                    <CaseLabel>status</CaseLabel>
+                    <span className="text-neon">online · hospedado na Vercel</span>
+                  </div>
+                  <TagRow tags={["Next.js", "Node.js", "Express", "MongoDB", "JWT", "TypeScript"]} />
+                </div>
+                <BrowserFrame label="minhafabrica.com · online" live>
+                  <img
+                    src={minhafabricaImg}
+                    alt="Painel administrativo do sistema MinhaFabrica — gestão de usuários e produtos"
+                    width={1440}
+                    height={900}
+                    loading="lazy"
+                    className="block h-auto w-full"
+                  />
+                </BrowserFrame>
+              </article>
+
+              {/* CASE 02 */}
+              <article className="grid items-center gap-12 border border-white/[0.08] bg-white/[0.015] p-6 transition-colors hover:border-neon/40 md:p-10 lg:grid-cols-[7fr_5fr]">
+                <BrowserFrame label="visionprod · dashboard" className="order-last lg:order-first">
+                  <img
+                    src={visionprodImg}
+                    alt="Dashboard do sistema empresarial Vision Pro — gestão e monitoramento de dados"
+                    width={1920}
+                    height={1080}
+                    loading="lazy"
+                    className="block h-auto w-full"
+                  />
+                </BrowserFrame>
+                <div className="flex flex-col gap-[18px]">
+                  <div className="font-mono text-[11px] tracking-[0.25em] text-neon/80">
+                    case/02 · sistemas empresariais
+                  </div>
+                  <h3 className="m-0 text-[34px] font-bold tracking-[-0.02em]">Vision Pro</h3>
+                  <div className="grid grid-cols-[96px_1fr] gap-x-4 gap-y-2 text-sm leading-[1.6]">
+                    <CaseLabel>problema</CaseLabel>
+                    <span className="text-paper/75">
+                      Empresas sem ferramenta robusta para gerenciar dados corporativos em tempo real.
+                    </span>
+                    <CaseLabel>solução</CaseLabel>
+                    <span className="text-paper/75">
+                      Plataforma completa de gestão e monitoramento: backend Python/FastAPI, frontend React,
+                      containerizada com Docker.
+                    </span>
+                    <CaseLabel>arquitetura</CaseLabel>
+                    <span className="text-paper/75">APIs REST · PostgreSQL · React · Docker.</span>
+                  </div>
+                  <TagRow tags={["Python", "FastAPI", "PostgreSQL", "React", "Docker"]} />
+                </div>
+              </article>
+
+              <Link
+                to="/projetos"
+                className="self-start font-mono text-[11px] tracking-[0.25em] text-paper/50 transition-colors hover:text-neon"
+              >
+                ver_todos_os_projetos() →
               </Link>
             </div>
-          </div>
-        </section>
+          </section>
 
-        {/* FEATURED — VisionProd preview */}
-        <section className="relative border-t border-border bg-white/[0.015] px-6 py-32">
-          <div className="mx-auto max-w-7xl">
-            <Reveal>
-              <SectionLabel accent="accent">Estudo de caso · destaque</SectionLabel>
-            </Reveal>
-            <div className="grid items-center gap-12 lg:grid-cols-12">
-              <div className="lg:col-span-5">
-                <Reveal>
-                  <h2 className="font-display text-4xl md:text-6xl mb-6">{featured.name}</h2>
-                  <p className="text-muted-foreground text-lg mb-10 max-w-[40ch]">{featured.tagline}</p>
-                  <div className="grid grid-cols-2 gap-3 mb-10">
-                    {featured.result.slice(0, 4).map((r) => (
-                      <div key={r.label} className="border border-border bg-white/5 p-4">
-                        <div className="font-mono text-2xl text-foreground">{r.value}</div>
-                        <div className="font-mono text-[9px] uppercase tracking-[0.2em] text-muted mt-1">{r.label}</div>
-                      </div>
-                    ))}
-                  </div>
-                  <Link
-                    to="/projetos/$slug"
-                    params={{ slug: "minhafabrica" }}
-                    className="inline-flex items-center gap-2 bg-foreground px-6 py-3 text-sm font-bold uppercase tracking-[0.2em] text-background hover:bg-primary hover:text-white transition-colors"
-                  >
-                    Explorar case →
-                  </Link>
-                </Reveal>
+          {/* LAB */}
+          <section id="lab" className="border-t border-white/[0.07] px-6 py-[120px] md:px-12">
+            <div className="mx-auto flex max-w-[1200px] flex-col gap-12">
+              <div className="flex flex-col gap-3.5">
+                <div className="font-mono text-[11px] uppercase tracking-[0.3em] text-neon">
+                  ./lab — experimentos
+                </div>
+                <h2 className="m-0 max-w-[24ch] text-[clamp(34px,4vw,52px)] font-bold tracking-[-0.02em]">
+                  Onde eu quebro coisas de propósito.
+                </h2>
+                <p className="m-0 max-w-[60ch] text-base text-paper/55">
+                  Experimentos têm cara de experimento: hipótese, método, aprendizado. É aqui que novas
+                  tecnologias entram na rede.
+                </p>
               </div>
-              <div className="lg:col-span-7">
-                <Reveal delay={0.1}>
-                  <DashboardMockup />
-                </Reveal>
+              <div className="grid gap-3.5 md:grid-cols-2">
+                {labs.map((lab) => (
+                  <article
+                    key={lab.title}
+                    className="flex flex-col gap-3 border border-white/[0.08] bg-white/[0.012] p-7 transition-colors hover:border-neon/45"
+                  >
+                    <div className="font-mono text-[10px] tracking-[0.25em] text-neon/70">{lab.spec}</div>
+                    <div className="text-[22px] font-bold">{lab.title}</div>
+                    <div className="grid grid-cols-[100px_1fr] gap-x-3.5 gap-y-1.5 text-[13.5px] leading-[1.6] text-paper/70">
+                      <LabLabel>hipótese</LabLabel>
+                      <span>{lab.hipotese}</span>
+                      <LabLabel>método</LabLabel>
+                      <span>{lab.metodo}</span>
+                      <LabLabel>aprendizado</LabLabel>
+                      <span>{lab.aprendizado}</span>
+                    </div>
+                    <div className="mt-auto flex gap-2 pt-2">
+                      {lab.tags.map((t) => (
+                        <span
+                          key={t}
+                          className="border border-white/[0.12] px-[9px] py-1 font-mono text-[10px] text-paper/60"
+                        >
+                          {t}
+                        </span>
+                      ))}
+                    </div>
+                  </article>
+                ))}
+              </div>
+              <Link
+                to="/laboratorio"
+                className="self-start font-mono text-[11px] tracking-[0.25em] text-paper/50 transition-colors hover:text-neon"
+              >
+                abrir_laboratorio() →
+              </Link>
+            </div>
+          </section>
+
+          {/* STACK */}
+          <section id="stack" className="border-t border-white/[0.07] px-6 py-[120px] md:px-12">
+            <div className="mx-auto flex max-w-[1200px] flex-col gap-12">
+              <div className="flex flex-col gap-3.5">
+                <div className="font-mono text-[11px] uppercase tracking-[0.3em] text-neon">
+                  ./stack — o grafo
+                </div>
+                <h2 className="m-0 text-[clamp(34px,4vw,52px)] font-bold tracking-[-0.02em]">
+                  Quatro clusters, uma rede.
+                </h2>
+              </div>
+              <div className="grid gap-3.5 sm:grid-cols-2 lg:grid-cols-4">
+                {clusters.map((c) => (
+                  <div
+                    key={c.title}
+                    className="flex flex-col gap-4 border border-white/[0.08] bg-white/[0.012] p-[26px] transition-colors hover:border-neon/45"
+                  >
+                    <div className="font-mono text-[10px] uppercase tracking-[0.25em] text-neon">
+                      {c.title}
+                    </div>
+                    <div className="flex flex-col gap-2 font-mono text-[13px] text-paper/80">
+                      {c.items.map((it) => (
+                        <span key={it}>◦ {it}</span>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+              <Link
+                to="/stack"
+                className="self-start font-mono text-[11px] tracking-[0.25em] text-paper/50 transition-colors hover:text-neon"
+              >
+                expandir_grafo() →
+              </Link>
+            </div>
+          </section>
+
+          {/* PROCESSO */}
+          <section id="processo" className="border-t border-white/[0.07] px-6 py-[120px] md:px-12">
+            <div className="mx-auto flex max-w-[1200px] flex-col gap-12">
+              <div className="flex flex-col gap-3.5">
+                <div className="font-mono text-[11px] uppercase tracking-[0.3em] text-neon">
+                  ./processo — o pipeline
+                </div>
+                <h2 className="m-0 text-[clamp(34px,4vw,52px)] font-bold tracking-[-0.02em]">
+                  Descobrir → modelar → construir → medir.
+                </h2>
+              </div>
+              <div className="grid gap-y-8 sm:grid-cols-2 lg:grid-cols-4 lg:gap-y-0">
+                {processo.map((p) => (
+                  <div
+                    key={p.step}
+                    className={`flex flex-col gap-2.5 border-l-2 ${p.border} py-1.5 pl-[22px] pr-6`}
+                  >
+                    <span className="font-mono text-xs text-neon">{p.step}</span>
+                    <span className="text-sm leading-[1.6] text-paper/70">{p.text}</span>
+                  </div>
+                ))}
               </div>
             </div>
-          </div>
-        </section>
+          </section>
 
-        {/* CTA */}
-        <section className="relative border-t border-border px-6 py-32">
-          <div className="mx-auto max-w-7xl text-center">
-            <Reveal>
-              <h2 className="font-display text-5xl md:text-7xl text-balance">
-                Pronto para construir algo<br />
-                que realmente <span className="text-primary italic">funciona</span>?
-              </h2>
-              <p className="mx-auto mt-6 max-w-xl text-muted-foreground text-lg">
-                Aberto para oportunidades em desenvolvimento Full-Stack, implementação de CRM e construção de integrações.
-              </p>
-              <div className="mt-10 flex flex-wrap justify-center gap-4">
-                <Link to="/contato" className="bg-primary px-7 py-4 text-sm font-bold uppercase tracking-[0.2em] text-white shadow-[0_0_40px_rgba(59,130,246,0.35)]">
-                  Iniciar conexão →
-                </Link>
-                <Link to="/roadmap" className="border border-border px-7 py-4 text-sm font-bold uppercase tracking-[0.2em] hover:border-primary hover:text-primary transition-colors">
-                  Ver Roadmap
-                </Link>
+          {/* CONTATO */}
+          <section id="contato" className="border-t border-white/[0.07] px-6 pb-[100px] pt-[140px] md:px-12">
+            <div className="mx-auto grid max-w-[1200px] items-center gap-16 lg:grid-cols-[7fr_5fr]">
+              <div className="flex flex-col gap-6">
+                <div className="font-mono text-[11px] uppercase tracking-[0.3em] text-neon">
+                  ./contato — handshake
+                </div>
+                <h2 className="m-0 text-[clamp(40px,5vw,68px)] font-bold leading-[1.02] tracking-[-0.03em]">
+                  Traga um problema <span className="text-neon">difícil.</span>
+                </h2>
+                <p className="m-0 max-w-[44ch] text-lg leading-[1.6] text-paper/60">
+                  É assim que toda boa arquitetura começa. Aberto a oportunidades full-stack, implementação de
+                  sistemas e integrações — CLT, PJ ou remoto.
+                </p>
+                <div className="flex flex-wrap gap-3.5">
+                  <a
+                    href={`mailto:${PERSON.email}`}
+                    className="inline-block bg-neon px-7 py-4 font-mono text-[13px] font-bold text-ink transition-all hover:bg-neon-bright hover:shadow-[0_0_34px_rgba(182,243,74,0.45)]"
+                  >
+                    transmitir_mensagem()
+                  </a>
+                  <a
+                    href={PERSON.github}
+                    target="_blank"
+                    rel="me noopener"
+                    className="inline-block border border-paper/25 px-7 py-4 font-mono text-[13px] text-paper transition-colors hover:border-neon hover:text-neon"
+                  >
+                    github ↗
+                  </a>
+                  <a
+                    href={PERSON.linkedin}
+                    target="_blank"
+                    rel="me noopener"
+                    className="inline-block border border-paper/25 px-7 py-4 font-mono text-[13px] text-paper transition-colors hover:border-neon hover:text-neon"
+                  >
+                    linkedin ↗
+                  </a>
+                </div>
               </div>
-            </Reveal>
-          </div>
-        </section>
+              <div className="border border-white/10 bg-[rgba(10,13,10,0.85)] backdrop-blur-[10px]">
+                <div className="flex items-center gap-1.5 border-b border-white/[0.08] px-3.5 py-2.5">
+                  <TrafficDots />
+                  <span className="ml-2.5 font-mono text-[10px] tracking-[0.12em] text-paper/40">
+                    kenzo@rede:~
+                  </span>
+                </div>
+                <div className="px-6 py-[22px] font-mono text-[13px] leading-8 text-paper/80">
+                  <div>
+                    <span className="text-neon">$</span> iniciar_conexao --alvo kenzo
+                  </div>
+                  <div className="text-paper/50">resolvendo nó… ok</div>
+                  <div className="text-paper/50">handshake… ok</div>
+                  <div className="text-paper/50">latência: Londrina-PR → você: 0ms</div>
+                  <div>
+                    <span className="text-neon">$</span> status
+                  </div>
+                  <div className="text-neon">
+                    disponível para novos sistemas
+                    <span className="ml-1.5 inline-block h-[15px] w-2 animate-[blinkdot_1s_infinite] bg-neon align-middle" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </main>
 
-        <SiteFooter />
+        {/* FOOTER */}
+        <footer className="flex flex-col gap-4 border-t border-white/[0.07] bg-ink/70 px-6 py-7 md:px-12">
+          <nav aria-label="Mapa do site" className="flex flex-wrap items-center gap-x-6 gap-y-2">
+            {(
+              [
+                ["/sobre", "sobre"],
+                ["/construo", "construo"],
+                ["/projetos", "projetos"],
+                ["/laboratorio", "laboratório"],
+                ["/stack", "stack"],
+                ["/roadmap", "roadmap"],
+                ["/contato", "contato"],
+              ] as const
+            ).map(([to, label]) => (
+              <Link
+                key={to}
+                to={to}
+                className="font-mono text-[10px] tracking-[0.2em] text-paper/45 transition-colors hover:text-neon"
+              >
+                ./{label}
+              </Link>
+            ))}
+          </nav>
+          <div className="flex flex-col gap-2 md:flex-row md:items-center">
+            <span className="font-mono text-[11px] tracking-[0.14em] text-paper/45">
+              © {new Date().getFullYear()} kenzo.dev — renderizado em tempo real · 60fps
+            </span>
+            <span className="font-mono text-[11px] tracking-[0.14em] text-paper/45 md:ml-auto">
+              Henrique Kenzo Silvatte · Londrina-PR
+            </span>
+          </div>
+        </footer>
       </div>
+    </div>
+  );
+}
+
+function CaseLabel({ children }: { children: string }) {
+  return <span className="pt-0.5 font-mono text-[11px] text-paper/45">{children}</span>;
+}
+
+function LabLabel({ children }: { children: string }) {
+  return <span className="pt-0.5 font-mono text-[10px] text-paper/40">{children}</span>;
+}
+
+function TagRow({ tags }: { tags: string[] }) {
+  return (
+    <div className="flex flex-wrap gap-2">
+      {tags.map((t) => (
+        <span
+          key={t}
+          className="border border-white/[0.12] px-2.5 py-[5px] font-mono text-[10px] tracking-[0.1em] text-paper/70"
+        >
+          {t}
+        </span>
+      ))}
+    </div>
+  );
+}
+
+function TrafficDots() {
+  return (
+    <>
+      <span className="size-2 rounded-full bg-[rgba(255,95,86,0.7)]" />
+      <span className="size-2 rounded-full bg-[rgba(255,189,46,0.7)]" />
+      <span className="size-2 rounded-full bg-[rgba(39,201,63,0.7)]" />
     </>
   );
 }
 
-function DashboardMockup() {
+function BrowserFrame({
+  label,
+  live,
+  className,
+  children,
+}: {
+  label: string;
+  live?: boolean;
+  className?: string;
+  children: React.ReactNode;
+}) {
   return (
-    <div className="group relative">
-      <div className="absolute -inset-2 bg-gradient-to-r from-primary/30 to-accent/30 rounded-2xl blur-2xl opacity-30 group-hover:opacity-60 transition-opacity duration-700" />
-      <div className="relative overflow-hidden rounded-xl border border-white/10 bg-background shadow-[0_30px_80px_-20px_rgba(0,0,0,0.8)]">
-        <div className="flex items-center gap-1.5 border-b border-border bg-white/[0.02] px-4 py-2.5">
-          <span className="size-2 rounded-full bg-red-500/60" />
-          <span className="size-2 rounded-full bg-yellow-500/60" />
-          <span className="size-2 rounded-full bg-green-500/60" />
-          <span className="font-mono text-[10px] uppercase tracking-widest text-muted ml-3">minhafabrica.com · online · vercel</span>
-          <span className="ml-auto flex items-center gap-1.5 font-mono text-[10px] text-primary">
-            <span className="size-1.5 rounded-full bg-primary animate-pulse-soft" /> LIVE
+    <div className={`border border-white/10 bg-[#0a0d0a] ${className ?? ""}`}>
+      <div className="flex items-center gap-1.5 border-b border-white/[0.08] px-3.5 py-2.5">
+        <TrafficDots />
+        <span className="ml-2.5 font-mono text-[10px] tracking-[0.12em] text-paper/40">{label}</span>
+        {live && (
+          <span className="ml-auto flex items-center gap-1.5 font-mono text-[10px] text-neon">
+            <span className="animate-blinkdot size-[5px] rounded-full bg-neon" />
+            LIVE
           </span>
-        </div>
-        <img
-          src={dashImg}
-          width={1536}
-          height={1024}
-          alt="Painel Administrativo MinhaFabrica - Gestão de Usuários e Produtos"
-          loading="lazy"
-          className="block h-auto w-full"
-        />
+        )}
       </div>
+      {children}
     </div>
   );
 }

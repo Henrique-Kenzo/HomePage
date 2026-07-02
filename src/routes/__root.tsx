@@ -11,6 +11,7 @@ import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
+import { personJsonLd, webSiteJsonLd } from "../lib/site";
 
 function NotFoundComponent() {
   return (
@@ -44,9 +45,7 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
       <div className="max-w-md text-center">
-        <h1 className="text-xl font-semibold tracking-tight text-foreground">
-          This page didn't load
-        </h1>
+        <h1 className="text-xl font-semibold tracking-tight text-foreground">This page didn't load</h1>
         <p className="mt-2 text-sm text-muted-foreground">
           Something went wrong on our end. You can try refreshing or head back home.
         </p>
@@ -77,30 +76,37 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { name: "theme-color", content: "#050505" },
-      { title: "Henrique Kenzo Silvatte — Engenharia de sistemas, automação e IA" },
+      { name: "theme-color", content: "#070907" },
+      { title: "Henrique Kenzo — Desenvolvedor Full-Stack · Sistemas, IA e Software | kenzo.dev" },
       {
         name: "description",
         content:
-          "Desenvolvedor focado em automação, integrações, IA e construção de sistemas que geram resultado.",
+          "Henrique Kenzo Silvatte (kenzo.dev) — desenvolvedor de software full-stack. Sistemas web, ERPs industriais, automação, integrações e IA. Node.js, Python, React.",
       },
       { name: "author", content: "Henrique Kenzo Silvatte" },
+      { name: "robots", content: "index, follow" },
       { property: "og:type", content: "website" },
-      { property: "og:title", content: "Henrique Kenzo Silvatte — Sistemas, automação e IA" },
-      {
-        property: "og:description",
-        content: "Eu transformo problemas complexos em software.",
-      },
       { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [
+      { rel: "icon", href: "/favicon.svg", type: "image/svg+xml" },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
         rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:wght@700;800&family=JetBrains+Mono:wght@400;500;700&display=swap",
+        href: "https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@400;500;700&display=swap",
       },
       { rel: "stylesheet", href: appCss },
+    ],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify(personJsonLd()),
+      },
+      {
+        type: "application/ld+json",
+        children: JSON.stringify(webSiteJsonLd()),
+      },
     ],
   }),
   shellComponent: RootShell,

@@ -37,7 +37,8 @@ export function NeuralHero() {
       <div
         className="pointer-events-none absolute inset-0 opacity-70 transition-opacity"
         style={{
-          background: "radial-gradient(400px circle at var(--mx) var(--my), rgba(59,130,246,0.18), transparent 60%)",
+          background:
+            "radial-gradient(400px circle at var(--mx) var(--my), rgba(59,130,246,0.18), transparent 60%)",
         }}
       />
       {/* brain image */}
@@ -59,7 +60,10 @@ export function NeuralHero() {
         {nodes.map((n, i) => (
           <line
             key={i}
-            x1="50" y1="50" x2={n.x} y2={n.y}
+            x1="50"
+            y1="50"
+            x2={n.x}
+            y2={n.y}
             stroke="url(#wire)"
             strokeWidth="0.18"
             className="animate-dash-flow"

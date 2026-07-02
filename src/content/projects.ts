@@ -14,11 +14,20 @@ export const projects: Project[] = [
   {
     slug: "minhafabrica",
     name: "MinhaFabrica - Desafio Técnico",
-    tagline: "Plataforma administrativa fullstack com autenticação JWT e gestão (CRUD) de Usuários e Produtos.",
+    tagline:
+      "Plataforma administrativa fullstack com autenticação JWT e gestão (CRUD) de Usuários e Produtos.",
     category: "Full-Stack Web",
-    problem: "Desenvolver uma solução completa e funcional para um processo seletivo, demonstrando habilidades E2E.",
-    solution: "Criação de um painel administrativo com separação de responsabilidades (backend/frontend), TypeScript para tipagem segura, e autenticação robusta.",
-    architecture: ["Front/back separados", "Camadas controllers/services/models", "MongoDB", "Node.js API", "Next.js Interface"],
+    problem:
+      "Desenvolver uma solução completa e funcional para um processo seletivo, demonstrando habilidades E2E.",
+    solution:
+      "Criação de um painel administrativo com separação de responsabilidades (backend/frontend), TypeScript para tipagem segura, e autenticação robusta.",
+    architecture: [
+      "Front/back separados",
+      "Camadas controllers/services/models",
+      "MongoDB",
+      "Node.js API",
+      "Next.js Interface",
+    ],
     result: [
       { value: "Online", label: "Hospedado na Vercel" },
       { value: "Full-Stack", label: "Sistema E2E" },
@@ -30,8 +39,10 @@ export const projects: Project[] = [
     name: "BillsMap",
     tagline: "Scanner de portas assíncrono em Python.",
     category: "Redes & Python",
-    problem: "Entender na prática como o Nmap funciona por baixo dos panos e otimizar varreduras em redes corporativas.",
-    solution: "Implementação de um scanner utilizando chamadas assíncronas em Python para concorrência eficiente.",
+    problem:
+      "Entender na prática como o Nmap funciona por baixo dos panos e otimizar varreduras em redes corporativas.",
+    solution:
+      "Implementação de um scanner utilizando chamadas assíncronas em Python para concorrência eficiente.",
     architecture: ["Python Asyncio", "Sockets API", "Processamento assíncrono"],
     result: [],
     stack: ["Python", "Asyncio", "Networking"],
@@ -41,7 +52,8 @@ export const projects: Project[] = [
     name: "Mini-CRM",
     tagline: "Integração de APIs externas para controle de CRM via Google Sheets.",
     category: "Automação",
-    problem: "Controlar leads e fluxo de CRM utilizando ferramentas de uso comum e acessíveis para o time comercial.",
+    problem:
+      "Controlar leads e fluxo de CRM utilizando ferramentas de uso comum e acessíveis para o time comercial.",
     solution: "Integração do Google Sheets via API para atuar como banco de dados ágil de um mini-CRM.",
     architecture: ["Python scripts", "Google Sheets API", "Integrações"],
     result: [],
@@ -74,8 +86,10 @@ export const projects: Project[] = [
     name: "Vision Pro",
     tagline: "Sistema empresarial para gestão e monitoramento.",
     category: "Sistemas Empresariais",
-    problem: "Empresas necessitavam de uma ferramenta robusta e escalável para gerenciar dados corporativos em tempo real.",
-    solution: "Desenvolvimento de uma plataforma completa com processamento backend em Python e FastAPI, aliada a um frontend moderno.",
+    problem:
+      "Empresas necessitavam de uma ferramenta robusta e escalável para gerenciar dados corporativos em tempo real.",
+    solution:
+      "Desenvolvimento de uma plataforma completa com processamento backend em Python e FastAPI, aliada a um frontend moderno.",
     architecture: ["APIs Restful", "PostgreSQL", "React", "Docker"],
     result: [],
     stack: ["Python", "FastAPI", "PostgreSQL", "React"],
