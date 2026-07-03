@@ -5,16 +5,45 @@ import { SiteFooter } from "@/components/site/SiteFooter";
 import { SectionLabel } from "@/components/site/SectionLabel";
 import { Reveal } from "@/components/site/Reveal";
 import { projects } from "@/content/projects";
-import { seo } from "@/lib/site";
+import { seo, SITE_URL, absoluteUrl, breadcrumbJsonLd } from "@/lib/site";
 
 export const Route = createFileRoute("/projetos/")({
-  head: () =>
-    seo({
+  head: () => ({
+    ...seo({
       title: "Projetos de software — estudos de caso · Henrique Kenzo (kenzo.dev)",
       description:
         "Estudos de caso de desenvolvimento de software: problema, solução, arquitetura e resultado. ERPs, sistemas empresariais, IA e automação em produção.",
       path: "/projetos",
     }),
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "CollectionPage",
+          "@id": absoluteUrl("/projetos"),
+          name: "Projetos de software — Henrique Kenzo",
+          inLanguage: "pt-BR",
+          author: { "@id": `${SITE_URL}/#person` },
+          mainEntity: {
+            "@type": "ItemList",
+            itemListElement: projects.map((p, i) => ({
+              "@type": "ListItem",
+              position: i + 1,
+              name: p.name,
+              url: absoluteUrl(`/projetos/${p.slug}`),
+            })),
+          },
+        }),
+      },
+      {
+        type: "application/ld+json",
+        children: JSON.stringify(
+          breadcrumbJsonLd([{ name: "Home", path: "/" }, { name: "Projetos" }]),
+        ),
+      },
+    ],
+  }),
   component: ProjetosIndex,
 });
 
@@ -30,6 +59,9 @@ function ProjetosIndex() {
               <Reveal>
                 <SectionLabel>Estudos de caso</SectionLabel>
                 <h1 className="font-display text-5xl md:text-7xl max-w-4xl text-balance">
+                  <span className="sr-only">
+                    Projetos de software de Henrique Kenzo —{" "}
+                  </span>
                   Problema. Solução.
                   <br />
                   Arquitetura. <span className="text-primary italic">Resultado.</span>

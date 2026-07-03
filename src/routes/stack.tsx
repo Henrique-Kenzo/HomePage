@@ -83,6 +83,9 @@ function StackPage() {
               <Reveal>
                 <SectionLabel>Mapa tecnológico</SectionLabel>
                 <h1 className="font-display text-5xl md:text-7xl max-w-4xl text-balance">
+                  <span className="sr-only">
+                    Stack de tecnologias de Henrique Kenzo: React, Node.js, Python e IA —{" "}
+                  </span>
                   Cinco camadas. <span className="text-primary italic">Uma malha.</span>
                 </h1>
                 <p className="mt-8 max-w-2xl text-lg text-muted-foreground">

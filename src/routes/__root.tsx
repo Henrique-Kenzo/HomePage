@@ -77,11 +77,11 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { name: "theme-color", content: "#070907" },
-      { title: "Henrique Kenzo — Desenvolvedor Full-Stack · Sistemas, IA e Software | kenzo.dev" },
+      { title: "Henrique Kenzo · Desenvolvedor de Software Full-Stack" },
       {
         name: "description",
         content:
-          "Henrique Kenzo Silvatte (kenzo.dev) — desenvolvedor de software full-stack. Sistemas web, ERPs industriais, automação, integrações e IA. Node.js, Python, React.",
+          "Henrique Kenzo Silvatte (kenzo.dev) — desenvolvedor de software full-stack em Londrina-PR. Sistemas web, ERPs industriais, automação, integrações e IA.",
       },
       { name: "author", content: "Henrique Kenzo Silvatte" },
       { name: "robots", content: "index, follow" },

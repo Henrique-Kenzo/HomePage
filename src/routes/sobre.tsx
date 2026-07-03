@@ -4,17 +4,36 @@ import { SiteHeader } from "@/components/site/SiteHeader";
 import { SiteFooter } from "@/components/site/SiteFooter";
 import { SectionLabel } from "@/components/site/SectionLabel";
 import { Reveal } from "@/components/site/Reveal";
-import { seo } from "@/lib/site";
+import { seo, SITE_URL, absoluteUrl, breadcrumbJsonLd } from "@/lib/site";
 
 export const Route = createFileRoute("/sobre")({
-  head: () =>
-    seo({
+  head: () => ({
+    ...seo({
       title: "Sobre Henrique Kenzo — trajetória de um desenvolvedor de software",
       description:
         "Da linha de frente do atendimento à engenharia de sistemas com IA: a trajetória de Henrique Kenzo Silvatte, desenvolvedor full-stack em Londrina-PR.",
       path: "/sobre",
       type: "profile",
     }),
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "ProfilePage",
+          "@id": absoluteUrl("/sobre"),
+          mainEntity: { "@id": `${SITE_URL}/#person` },
+          inLanguage: "pt-BR",
+        }),
+      },
+      {
+        type: "application/ld+json",
+        children: JSON.stringify(
+          breadcrumbJsonLd([{ name: "Home", path: "/" }, { name: "Sobre" }]),
+        ),
+      },
+    ],
+  }),
   component: SobrePage,
 });
 
@@ -52,6 +71,9 @@ function SobrePage() {
               <Reveal>
                 <SectionLabel>Trajetória</SectionLabel>
                 <h1 className="font-display text-5xl md:text-7xl max-w-4xl text-balance">
+                  <span className="sr-only">
+                    Sobre Henrique Kenzo, desenvolvedor de software —{" "}
+                  </span>
                   Uma jornada não linear
                   <br />
                   até a <span className="text-primary italic">engenharia.</span>

@@ -1,5 +1,3 @@
-import heroImg from "@/assets/neural-hero.jpg";
-
 /**
  * URL canônica do site (domínio próprio, apontado para a Vercel).
  * Pode ser sobrescrita com VITE_SITE_URL; se mudar, atualize também
@@ -45,18 +43,27 @@ export function absoluteUrl(path: string) {
   return path.startsWith("http") ? path : `${SITE_URL}${path.startsWith("/") ? "" : "/"}${path}`;
 }
 
+/** Imagem OG padrão do site (1200×630, gerada por scripts/og-cover.mjs). */
+export const OG_COVER = "/og-cover.jpg";
+
 /** Gera meta + canonical padronizados para o head() de cada rota. */
 export function seo({
   title,
   description,
   path,
-  image = heroImg,
+  image = OG_COVER,
+  imageWidth = 1200,
+  imageHeight = 630,
+  imageAlt = "Henrique Kenzo — desenvolvedor de software full-stack (kenzo.dev)",
   type = "website",
 }: {
   title: string;
   description: string;
   path: string;
   image?: string;
+  imageWidth?: number;
+  imageHeight?: number;
+  imageAlt?: string;
   type?: "website" | "article" | "profile";
 }) {
   const url = absoluteUrl(path);
@@ -72,6 +79,9 @@ export function seo({
       { property: "og:description", content: description },
       { property: "og:url", content: url },
       { property: "og:image", content: img },
+      { property: "og:image:width", content: String(imageWidth) },
+      { property: "og:image:height", content: String(imageHeight) },
+      { property: "og:image:alt", content: imageAlt },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:title", content: title },
       { name: "twitter:description", content: description },
@@ -91,7 +101,7 @@ export function personJsonLd() {
     jobTitle: PERSON.jobTitle,
     email: `mailto:${PERSON.email}`,
     url: SITE_URL,
-    image: absoluteUrl(heroImg),
+    image: absoluteUrl(OG_COVER),
     sameAs: [PERSON.github, PERSON.linkedin],
     address: {
       "@type": "PostalAddress",
@@ -102,6 +112,20 @@ export function personJsonLd() {
     knowsAbout: [...PERSON.knowsAbout],
     description:
       "Desenvolvedor de software full-stack especializado em sistemas web, ERPs industriais, automação, integrações e pipelines de IA com visão computacional. Node.js, Python, TypeScript e React.",
+  };
+}
+
+/** Trilha de navegação (rich results + entendimento da hierarquia do site). */
+export function breadcrumbJsonLd(items: { name: string; path?: string }[]) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: items.map((item, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      name: item.name,
+      ...(item.path ? { item: absoluteUrl(item.path) } : {}),
+    })),
   };
 }
 

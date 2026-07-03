@@ -1,15 +1,15 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { FxNeural } from "@/components/site/FxNeural";
 import { seo, PERSON } from "@/lib/site";
-import minhafabricaImg from "@/assets/minhafabrica-dashboard.png";
-import visionprodImg from "@/assets/visionprod-dashboard.jpg";
+import minhafabricaImg from "@/assets/minhafabrica-dashboard.webp";
+import visionprodImg from "@/assets/visionprod-dashboard.webp";
 
 export const Route = createFileRoute("/")({
   head: () =>
     seo({
-      title: "Henrique Kenzo — Desenvolvedor Full-Stack · Sistemas, IA e Software | kenzo.dev",
+      title: "Henrique Kenzo · Desenvolvedor de Software Full-Stack",
       description:
-        "Henrique Kenzo Silvatte (kenzo.dev) — desenvolvedor de software full-stack em Londrina-PR. Sistemas web, ERPs industriais, automação, integrações e IA com visão computacional. Node.js, Python, TypeScript e React.",
+        "Henrique Kenzo Silvatte (kenzo.dev) — desenvolvedor de software full-stack em Londrina-PR. Sistemas web, ERPs industriais, automação, integrações e IA.",
       path: "/",
     }),
   component: Home,
@@ -160,6 +160,9 @@ function Home() {
                 className="animate-fade-up m-0 max-w-[14ch] text-[clamp(48px,6.5vw,92px)] font-bold leading-none tracking-[-0.03em]"
                 style={{ animationDelay: "0.08s" }}
               >
+                <span className="sr-only">
+                  Henrique Kenzo, desenvolvedor de software full-stack —{" "}
+                </span>
                 Eu não faço páginas. Eu construo <span className="text-neon">sistemas vivos.</span>
               </h1>
               <p
@@ -268,8 +271,8 @@ function Home() {
                   <img
                     src={visionprodImg}
                     alt="Dashboard do sistema empresarial Vision Pro — gestão e monitoramento de dados"
-                    width={1920}
-                    height={1080}
+                    width={1440}
+                    height={810}
                     loading="lazy"
                     className="block h-auto w-full"
                   />

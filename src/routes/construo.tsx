@@ -70,6 +70,9 @@ function ConstruoPage() {
               <Reveal>
                 <SectionLabel>Capacidades</SectionLabel>
                 <h1 className="font-display text-5xl md:text-7xl max-w-4xl text-balance">
+                  <span className="sr-only">
+                    Desenvolvimento de sistemas web, APIs, automação e IA —{" "}
+                  </span>
                   Quatro frentes,
                   <br />
                   uma mesma <span className="text-primary italic">obsessão.</span>

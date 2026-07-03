@@ -5,8 +5,10 @@ import { SiteFooter } from "@/components/site/SiteFooter";
 import { SectionLabel } from "@/components/site/SectionLabel";
 import { Reveal } from "@/components/site/Reveal";
 import { projects, type Project } from "@/content/projects";
+// PNG para og:image e JSON-LD (crawlers de preview não suportam WebP); WebP para exibição.
 import dashImg from "@/assets/minhafabrica-dashboard.png";
-import { seo, SITE_URL, absoluteUrl, PERSON } from "@/lib/site";
+import dashImgWebp from "@/assets/minhafabrica-dashboard.webp";
+import { seo, SITE_URL, absoluteUrl, PERSON, breadcrumbJsonLd } from "@/lib/site";
 
 export const Route = createFileRoute("/projetos/$slug")({
   loader: ({ params }) => {
@@ -17,11 +19,17 @@ export const Route = createFileRoute("/projetos/$slug")({
   head: ({ loaderData }) => {
     if (!loaderData?.project) return { meta: [] };
     const p = loaderData.project;
+    const isMinhaFabrica = p.slug === "minhafabrica";
     const base = seo({
       title: `${p.name} — estudo de caso de ${p.category} · Henrique Kenzo`,
       description: `${p.tagline} Problema, solução, arquitetura e stack: ${p.stack.join(", ")}.`,
       path: `/projetos/${p.slug}`,
-      image: p.slug === "minhafabrica" ? dashImg : undefined,
+      image: isMinhaFabrica ? dashImg : undefined,
+      imageWidth: isMinhaFabrica ? 1440 : undefined,
+      imageHeight: isMinhaFabrica ? 900 : undefined,
+      imageAlt: isMinhaFabrica
+        ? `Dashboard do ${p.name} — sistema desenvolvido por Henrique Kenzo`
+        : undefined,
       type: "article",
     });
     return {
@@ -36,8 +44,19 @@ export const Route = createFileRoute("/projetos/$slug")({
             description: p.tagline,
             url: absoluteUrl(`/projetos/${p.slug}`),
             programmingLanguage: p.stack,
+            ...(isMinhaFabrica ? { image: absoluteUrl(dashImg) } : {}),
             author: { "@type": "Person", "@id": `${SITE_URL}/#person`, name: PERSON.name },
           }),
+        },
+        {
+          type: "application/ld+json",
+          children: JSON.stringify(
+            breadcrumbJsonLd([
+              { name: "Home", path: "/" },
+              { name: "Projetos", path: "/projetos" },
+              { name: p.name },
+            ]),
+          ),
         },
       ],
     };
@@ -112,7 +131,7 @@ function ProjectDetail() {
                         </span>
                       </div>
                       <img
-                        src={dashImg}
+                        src={dashImgWebp}
                         alt={`Dashboard do ${project.name}`}
                         width={1440}
                         height={900}
