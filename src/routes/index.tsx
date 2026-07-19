@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { FxNeural } from "@/components/site/FxNeural";
 import { seo, PERSON } from "@/lib/site";
 import minhafabricaImg from "@/assets/minhafabrica-dashboard.webp";
@@ -7,79 +7,76 @@ import visionprodImg from "@/assets/visionprod-dashboard.webp";
 export const Route = createFileRoute("/")({
   head: () =>
     seo({
-      title: "Henrique Kenzo · Desenvolvedor de Software Full-Stack",
+      title: "Henrique Kenzo — Eu encontro a causa, não o sintoma",
       description:
-        "Henrique Kenzo Silvatte (kenzo.dev) — desenvolvedor de software full-stack em Londrina-PR. Sistemas web, ERPs industriais, automação, integrações e IA.",
+        "Henrique Kenzo Silvatte (kenzo.dev) — engenharia de software full-stack em Londrina-PR. ERPs industriais, automação, integrações e IA. Diagnóstico antes do código.",
       path: "/",
     }),
   component: Home,
 });
 
-const navLinks = [
-  { href: "#sistemas", label: "./sistemas" },
-  { href: "#lab", label: "./lab" },
-  { href: "#stack", label: "./stack" },
-  { href: "#processo", label: "./processo" },
-];
+/** Flags de configuração do cartão de visitas (ver README do handoff). */
+const CONFIG = {
+  disponivel: true,
+  mostrarSistemas: true,
+  mensagemWhatsApp: "Oi Henrique! Vi seu site e tenho um problema que queria te mostrar.",
+};
 
-const manifesto = [
-  { n: "/01", text: <>Sistemas devem trabalhar sozinhos.</> },
-  { n: "/02", text: <>Interfaces devem responder.</> },
-  {
-    n: "/03",
-    text: (
-      <>
-        Código deve <span className="text-neon">durar.</span>
-      </>
-    ),
-  },
-];
+const WA_LINK = `https://wa.me/5543996773272?text=${encodeURIComponent(CONFIG.mensagemWhatsApp)}`;
 
-const labs = [
+const dores = [
   {
-    spec: "spec/01 · redes",
-    title: "BillsMap",
-    hipotese: "dá para entender o Nmap por baixo dos panos reimplementando-o.",
-    metodo: "scanner de portas com Python Asyncio e sockets crus.",
-    aprendizado: "concorrência assíncrona aplicada a varredura de redes corporativas.",
-    tags: ["Python", "Asyncio", "Sockets"],
+    tag: "operação manual",
+    problema: "A planilha virou o sistema — e virou o gargalo.",
+    saida:
+      "Sistema web com dono, autenticação, histórico e regra de negócio no lugar certo. A planilha volta a ser planilha.",
+    stack: "Node.js · Next.js · PostgreSQL",
   },
   {
-    spec: "spec/02 · automação",
-    title: "Mini-CRM",
-    hipotese: "um time comercial consegue operar um CRM dentro do Google Sheets.",
-    metodo: "Sheets como banco ágil, integrado via API com scripts Python.",
-    aprendizado: "integração de APIs externas e desenho de fluxo para usuários não-técnicos.",
-    tags: ["Python", "Sheets API", "Google Cloud"],
+    tag: "sistemas isolados",
+    problema: "ERP, e-commerce e financeiro que não se falam.",
+    saida:
+      "Integrações via API e webhooks que sincronizam sozinhas — sem redigitar nada, sem 'esperar o fechamento do mês'.",
+    stack: "APIs REST · Webhooks · Python",
   },
   {
-    spec: "spec/03 · front-end",
-    title: "Landing Page React",
-    hipotese: "componentização bem feita acelera qualquer interface de conversão.",
-    metodo: "landing responsiva em React com padrões de componentização.",
-    aprendizado: "arquitetura de componentes e performance percebida.",
-    tags: ["React", "HTML", "CSS"],
+    tag: "sem visibilidade",
+    problema: "Decisão tomada no escuro, número descoberto tarde.",
+    saida:
+      "Painéis e ERP com o número certo na tela, em tempo real. Quem opera enxerga; quem decide confia.",
+    stack: "React · FastAPI · PostgreSQL",
   },
   {
-    spec: "spec/04 · front-end",
-    title: "LinkTree 0.1",
-    hipotese: "uma página útil pode pesar quase nada.",
-    metodo: "agregador de links em HTML e CSS puros, mobile-first.",
-    aprendizado: "performance como restrição de design, não otimização posterior.",
-    tags: ["HTML", "CSS"],
+    tag: "tarefa repetitiva",
+    problema: "Horas de gente boa gastas em copiar-e-colar.",
+    saida:
+      "Automação e pipelines de IA (incluindo visão computacional) medidos em horas economizadas por mês.",
+    stack: "Python · IA · Visão computacional",
   },
 ];
 
-const clusters = [
+const sistemas = [
   {
-    title: "backend & apis",
-    items: ["Node.js · Express", "Python · FastAPI", "REST APIs", "Autenticação JWT"],
+    nome: "MinhaFabrica",
+    label: "minhafabrica.com · online",
+    live: true,
+    descricao:
+      "Operação industrial sem visibilidade centralizada → painel completo com autenticação, usuários e produtos. Node.js · Next.js · MongoDB.",
+    img: minhafabricaImg,
+    alt: "Painel administrativo do sistema MinhaFabrica",
+    width: 1440,
+    height: 900,
   },
-  { title: "front-end", items: ["React · Next.js", "TypeScript", "HTML / CSS", "Design responsivo"] },
-  { title: "dados", items: ["MongoDB", "PostgreSQL", "SQL · modelagem", "Persistência segura"] },
   {
-    title: "automação & ia",
-    items: ["Integrações via API", "Webhooks", "Visão computacional", "Pipelines de IA"],
+    nome: "Vision Pro",
+    label: "visionprod · dashboard",
+    live: false,
+    descricao:
+      "Dados corporativos sem ferramenta robusta → plataforma de gestão e monitoramento. Python · FastAPI · PostgreSQL · Docker.",
+    img: visionprodImg,
+    alt: "Dashboard do sistema empresarial Vision Pro",
+    width: 1440,
+    height: 810,
   },
 ];
 
@@ -112,7 +109,7 @@ function Home() {
       {/* REDE VIVA — fundo fixo, reage a mouse e clique na página inteira */}
       <div className="fixed inset-0 z-0" aria-hidden>
         <FxNeural />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_30%_40%,transparent_30%,rgba(7,9,7,0.55)_100%)]" />
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_30%_40%,transparent_30%,rgba(7,9,7,0.55)_100%)]" />
       </div>
 
       <div className="relative z-10">
@@ -122,26 +119,25 @@ function Home() {
             kenzo<span className="text-neon">.dev</span>
           </a>
           <nav className="ml-auto flex items-center gap-7" aria-label="Navegação principal">
-            {navLinks.map((l) => (
-              <a
-                key={l.href}
-                href={l.href}
-                className="hidden font-mono text-[11px] tracking-[0.18em] text-paper/60 transition-colors hover:text-neon md:inline"
-              >
-                {l.label}
-              </a>
-            ))}
-            <Link
-              to="/sobre"
+            <a
+              href="#resolvo"
               className="hidden font-mono text-[11px] tracking-[0.18em] text-paper/60 transition-colors hover:text-neon md:inline"
             >
-              ./sobre
-            </Link>
+              ./resolvo
+            </a>
             <a
-              href="#contato"
+              href="#processo"
+              className="hidden font-mono text-[11px] tracking-[0.18em] text-paper/60 transition-colors hover:text-neon md:inline"
+            >
+              ./processo
+            </a>
+            <a
+              href={WA_LINK}
+              target="_blank"
+              rel="noopener"
               className="bg-neon px-4 py-2.5 font-mono text-[11px] font-bold tracking-[0.14em] text-ink transition-colors hover:bg-neon-bright"
             >
-              iniciar_conexao()
+              chamar_no_whatsapp()
             </a>
           </nav>
         </header>
@@ -153,44 +149,46 @@ function Home() {
               <div className="animate-fade-up inline-flex items-center gap-2 self-start border border-neon/35 px-3.5 py-[7px]">
                 <span className="animate-blinkdot size-1.5 rounded-full bg-neon" />
                 <span className="font-mono text-[10px] uppercase tracking-[0.28em] text-neon">
-                  rede ativa · londrina-pr · disponível
+                  rede ativa · londrina-pr · {CONFIG.disponivel ? "disponível" : "em projeto"}
                 </span>
               </div>
               <h1
-                className="animate-fade-up m-0 max-w-[14ch] text-[clamp(48px,6.5vw,92px)] font-bold leading-none tracking-[-0.03em]"
+                className="animate-fade-up m-0 max-w-[15ch] text-[clamp(48px,6.5vw,92px)] font-bold leading-none tracking-[-0.03em]"
                 style={{ animationDelay: "0.08s" }}
               >
                 <span className="sr-only">
                   Henrique Kenzo, desenvolvedor de software full-stack —{" "}
                 </span>
-                Eu não faço páginas. Eu construo <span className="text-neon">sistemas vivos.</span>
+                Sintoma qualquer um vê. Eu resolvo <span className="text-neon">a causa.</span>
               </h1>
               <p
                 className="animate-fade-up m-0 max-w-[52ch] text-[19px] leading-[1.6] text-paper/60"
                 style={{ animationDelay: "0.16s" }}
               >
-                Henrique Kenzo · engenharia full-stack. ERPs industriais, pipelines de IA e visão
-                computacional, integrações que trabalham enquanto você dorme. Node, Python e React — do banco
-                ao pixel.
+                Henrique Kenzo · engenharia full-stack. ERPs industriais, automação, integrações e
+                pipelines de IA — sistemas que continuam funcionando depois que o deploy acaba. Node,
+                Python e React, do banco ao pixel.
               </p>
               <div className="animate-fade-up flex flex-wrap gap-3.5" style={{ animationDelay: "0.24s" }}>
                 <a
-                  href="#sistemas"
+                  href={WA_LINK}
+                  target="_blank"
+                  rel="noopener"
                   className="inline-block bg-neon px-7 py-4 font-mono text-[13px] font-bold text-ink transition-all hover:bg-neon-bright hover:shadow-[0_0_34px_rgba(182,243,74,0.45)]"
                 >
-                  acessar_rede()
+                  me_conta_o_problema()
                 </a>
                 <a
-                  href="#contato"
+                  href="#resolvo"
                   className="inline-block border border-paper/25 px-7 py-4 font-mono text-[13px] text-paper transition-colors hover:border-neon hover:text-neon"
                 >
-                  transmitir_mensagem()
+                  ver_o_que_eu_resolvo()
                 </a>
               </div>
             </div>
             <div className="mx-auto flex w-full max-w-[1200px] items-center pb-[26px]">
               <span className="font-mono text-[10px] tracking-[0.18em] text-paper/35">
-                LAT -23.3103 · LON -51.1628 · nó: hero/01 · sinapses: 118
+                LAT -23.3103 · LON -51.1628 · nó: cartao/01 · sinapses: 118
               </span>
               <span className="ml-auto hidden font-mono text-[10px] tracking-[0.18em] text-neon/60 md:inline">
                 mova o mouse · clique para propagar um pulso · scroll ↓
@@ -198,205 +196,85 @@ function Home() {
             </div>
           </section>
 
-          {/* MANIFESTO */}
-          <section className="border-t border-white/[0.07] px-6 py-[140px] md:px-12">
-            <div className="mx-auto flex max-w-[1200px] flex-col gap-12">
-              <div className="font-mono text-[11px] uppercase tracking-[0.3em] text-neon">manifesto</div>
-              <div className="flex flex-col gap-9">
-                {manifesto.map((m) => (
-                  <div key={m.n} className="grid grid-cols-[60px_1fr] items-baseline gap-6">
-                    <span className="font-mono text-sm text-neon/70">{m.n}</span>
-                    <span className="text-[clamp(32px,4vw,56px)] font-bold leading-[1.1] tracking-[-0.02em]">
-                      {m.text}
-                    </span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </section>
-
-          {/* SISTEMAS */}
-          <section id="sistemas" className="border-t border-white/[0.07] px-6 py-[120px] md:px-12">
+          {/* O QUE EU RESOLVO */}
+          <section id="resolvo" className="border-t border-white/[0.07] px-6 py-[120px] md:px-12">
             <div className="mx-auto flex max-w-[1200px] flex-col gap-14">
               <div className="flex flex-col gap-3.5">
                 <div className="font-mono text-[11px] uppercase tracking-[0.3em] text-neon">
-                  ./sistemas — cases reais
+                  ./resolvo — do problema ao sistema
                 </div>
                 <h2 className="m-0 max-w-[20ch] text-[clamp(34px,4vw,52px)] font-bold tracking-[-0.02em]">
-                  Sistemas em produção, de ponta a ponta.
+                  Se está te custando tempo, dá pra virar sistema.
                 </h2>
               </div>
-
-              {/* CASE 01 */}
-              <article className="grid items-center gap-12 border border-white/[0.08] bg-white/[0.015] p-6 transition-colors hover:border-neon/40 md:p-10 lg:grid-cols-[5fr_7fr]">
-                <div className="flex flex-col gap-[18px]">
-                  <div className="font-mono text-[11px] tracking-[0.25em] text-neon/80">
-                    case/01 · full-stack web
-                  </div>
-                  <h3 className="m-0 text-[34px] font-bold tracking-[-0.02em]">MinhaFabrica</h3>
-                  <div className="grid grid-cols-[96px_1fr] gap-x-4 gap-y-2 text-sm leading-[1.6]">
-                    <CaseLabel>problema</CaseLabel>
-                    <span className="text-paper/75">
-                      Operação industrial sem visibilidade centralizada de usuários, produtos e processos.
-                    </span>
-                    <CaseLabel>solução</CaseLabel>
-                    <span className="text-paper/75">
-                      Painel administrativo completo com autenticação JWT, CRUD de usuários e produtos,
-                      backend e frontend separados por responsabilidade.
-                    </span>
-                    <CaseLabel>arquitetura</CaseLabel>
-                    <span className="text-paper/75">
-                      Controllers → services → models · API Node.js · interface Next.js · MongoDB.
-                    </span>
-                    <CaseLabel>status</CaseLabel>
-                    <span className="text-neon">online · hospedado na Vercel</span>
-                  </div>
-                  <TagRow tags={["Next.js", "Node.js", "Express", "MongoDB", "JWT", "TypeScript"]} />
-                </div>
-                <BrowserFrame label="minhafabrica.com · online" live>
-                  <img
-                    src={minhafabricaImg}
-                    alt="Painel administrativo do sistema MinhaFabrica — gestão de usuários e produtos"
-                    width={1440}
-                    height={900}
-                    loading="lazy"
-                    className="block h-auto w-full"
-                  />
-                </BrowserFrame>
-              </article>
-
-              {/* CASE 02 */}
-              <article className="grid items-center gap-12 border border-white/[0.08] bg-white/[0.015] p-6 transition-colors hover:border-neon/40 md:p-10 lg:grid-cols-[7fr_5fr]">
-                <BrowserFrame label="visionprod · dashboard" className="order-last lg:order-first">
-                  <img
-                    src={visionprodImg}
-                    alt="Dashboard do sistema empresarial Vision Pro — gestão e monitoramento de dados"
-                    width={1440}
-                    height={810}
-                    loading="lazy"
-                    className="block h-auto w-full"
-                  />
-                </BrowserFrame>
-                <div className="flex flex-col gap-[18px]">
-                  <div className="font-mono text-[11px] tracking-[0.25em] text-neon/80">
-                    case/02 · sistemas empresariais
-                  </div>
-                  <h3 className="m-0 text-[34px] font-bold tracking-[-0.02em]">Vision Pro</h3>
-                  <div className="grid grid-cols-[96px_1fr] gap-x-4 gap-y-2 text-sm leading-[1.6]">
-                    <CaseLabel>problema</CaseLabel>
-                    <span className="text-paper/75">
-                      Empresas sem ferramenta robusta para gerenciar dados corporativos em tempo real.
-                    </span>
-                    <CaseLabel>solução</CaseLabel>
-                    <span className="text-paper/75">
-                      Plataforma completa de gestão e monitoramento: backend Python/FastAPI, frontend React,
-                      containerizada com Docker.
-                    </span>
-                    <CaseLabel>arquitetura</CaseLabel>
-                    <span className="text-paper/75">APIs REST · PostgreSQL · React · Docker.</span>
-                  </div>
-                  <TagRow tags={["Python", "FastAPI", "PostgreSQL", "React", "Docker"]} />
-                </div>
-              </article>
-
-              <Link
-                to="/projetos"
-                className="self-start font-mono text-[11px] tracking-[0.25em] text-paper/50 transition-colors hover:text-neon"
-              >
-                ver_todos_os_projetos() →
-              </Link>
-            </div>
-          </section>
-
-          {/* LAB */}
-          <section id="lab" className="border-t border-white/[0.07] px-6 py-[120px] md:px-12">
-            <div className="mx-auto flex max-w-[1200px] flex-col gap-12">
-              <div className="flex flex-col gap-3.5">
-                <div className="font-mono text-[11px] uppercase tracking-[0.3em] text-neon">
-                  ./lab — experimentos
-                </div>
-                <h2 className="m-0 max-w-[24ch] text-[clamp(34px,4vw,52px)] font-bold tracking-[-0.02em]">
-                  Onde eu quebro coisas de propósito.
-                </h2>
-                <p className="m-0 max-w-[60ch] text-base text-paper/55">
-                  Experimentos têm cara de experimento: hipótese, método, aprendizado. É aqui que novas
-                  tecnologias entram na rede.
-                </p>
-              </div>
-              <div className="grid gap-3.5 md:grid-cols-2">
-                {labs.map((lab) => (
+              <div className="grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-3.5">
+                {dores.map((dor) => (
                   <article
-                    key={lab.title}
-                    className="flex flex-col gap-3 border border-white/[0.08] bg-white/[0.012] p-7 transition-colors hover:border-neon/45"
+                    key={dor.tag}
+                    className="flex flex-col gap-4 border border-white/[0.08] bg-white/[0.012] p-[26px] transition-colors hover:border-neon/45"
                   >
-                    <div className="font-mono text-[10px] tracking-[0.25em] text-neon/70">{lab.spec}</div>
-                    <div className="text-[22px] font-bold">{lab.title}</div>
-                    <div className="grid grid-cols-[100px_1fr] gap-x-3.5 gap-y-1.5 text-[13.5px] leading-[1.6] text-paper/70">
-                      <LabLabel>hipótese</LabLabel>
-                      <span>{lab.hipotese}</span>
-                      <LabLabel>método</LabLabel>
-                      <span>{lab.metodo}</span>
-                      <LabLabel>aprendizado</LabLabel>
-                      <span>{lab.aprendizado}</span>
+                    <div className="font-mono text-[10px] uppercase tracking-[0.25em] text-neon">
+                      {dor.tag}
                     </div>
-                    <div className="mt-auto flex gap-2 pt-2">
-                      {lab.tags.map((t) => (
-                        <span
-                          key={t}
-                          className="border border-white/[0.12] px-[9px] py-1 font-mono text-[10px] text-paper/60"
-                        >
-                          {t}
-                        </span>
-                      ))}
+                    <div className="text-lg font-bold leading-[1.3]">{dor.problema}</div>
+                    <div className="text-sm leading-[1.6] text-paper/65">{dor.saida}</div>
+                    <div className="mt-auto pt-2 font-mono text-[11px] text-paper/50">
+                      → {dor.stack}
                     </div>
                   </article>
                 ))}
               </div>
-              <Link
-                to="/laboratorio"
-                className="self-start font-mono text-[11px] tracking-[0.25em] text-paper/50 transition-colors hover:text-neon"
-              >
-                abrir_laboratorio() →
-              </Link>
             </div>
           </section>
 
-          {/* STACK */}
-          <section id="stack" className="border-t border-white/[0.07] px-6 py-[120px] md:px-12">
-            <div className="mx-auto flex max-w-[1200px] flex-col gap-12">
-              <div className="flex flex-col gap-3.5">
-                <div className="font-mono text-[11px] uppercase tracking-[0.3em] text-neon">
-                  ./stack — o grafo
-                </div>
-                <h2 className="m-0 text-[clamp(34px,4vw,52px)] font-bold tracking-[-0.02em]">
-                  Quatro clusters, uma rede.
-                </h2>
-              </div>
-              <div className="grid gap-3.5 sm:grid-cols-2 lg:grid-cols-4">
-                {clusters.map((c) => (
-                  <div
-                    key={c.title}
-                    className="flex flex-col gap-4 border border-white/[0.08] bg-white/[0.012] p-[26px] transition-colors hover:border-neon/45"
-                  >
-                    <div className="font-mono text-[10px] uppercase tracking-[0.25em] text-neon">
-                      {c.title}
-                    </div>
-                    <div className="flex flex-col gap-2 font-mono text-[13px] text-paper/80">
-                      {c.items.map((it) => (
-                        <span key={it}>◦ {it}</span>
-                      ))}
-                    </div>
+          {/* PROVA EM PRODUÇÃO */}
+          {CONFIG.mostrarSistemas && (
+            <section id="producao" className="border-t border-white/[0.07] px-6 py-[120px] md:px-12">
+              <div className="mx-auto flex max-w-[1200px] flex-col gap-14">
+                <div className="flex flex-col gap-3.5">
+                  <div className="font-mono text-[11px] uppercase tracking-[0.3em] text-neon">
+                    ./producao — não é mockup
                   </div>
-                ))}
+                  <h2 className="m-0 max-w-[22ch] text-[clamp(34px,4vw,52px)] font-bold tracking-[-0.02em]">
+                    Sistemas rodando agora, com usuário de verdade.
+                  </h2>
+                </div>
+                <div className="grid gap-3.5 md:grid-cols-[repeat(auto-fit,minmax(380px,1fr))]">
+                  {sistemas.map((s) => (
+                    <article
+                      key={s.nome}
+                      className="flex flex-col border border-white/10 bg-[#0a0d0a] transition-colors hover:border-neon/40"
+                    >
+                      <div className="flex items-center gap-1.5 border-b border-white/[0.08] px-3.5 py-2.5">
+                        <TrafficDots />
+                        <span className="ml-2.5 font-mono text-[10px] tracking-[0.12em] text-paper/40">
+                          {s.label}
+                        </span>
+                        {s.live && (
+                          <span className="ml-auto flex items-center gap-1.5 font-mono text-[10px] text-neon">
+                            <span className="animate-blinkdot size-[5px] rounded-full bg-neon" />
+                            LIVE
+                          </span>
+                        )}
+                      </div>
+                      <img
+                        src={s.img}
+                        alt={s.alt}
+                        width={s.width}
+                        height={s.height}
+                        loading="lazy"
+                        className="block h-auto w-full"
+                      />
+                      <div className="flex flex-col gap-2 px-6 py-5">
+                        <div className="text-xl font-bold">{s.nome}</div>
+                        <div className="text-[13.5px] leading-[1.6] text-paper/65">{s.descricao}</div>
+                      </div>
+                    </article>
+                  ))}
+                </div>
               </div>
-              <Link
-                to="/stack"
-                className="self-start font-mono text-[11px] tracking-[0.25em] text-paper/50 transition-colors hover:text-neon"
-              >
-                expandir_grafo() →
-              </Link>
-            </div>
-          </section>
+            </section>
+          )}
 
           {/* PROCESSO */}
           <section id="processo" className="border-t border-white/[0.07] px-6 py-[120px] md:px-12">
@@ -431,18 +309,26 @@ function Home() {
                   ./contato — handshake
                 </div>
                 <h2 className="m-0 text-[clamp(40px,5vw,68px)] font-bold leading-[1.02] tracking-[-0.03em]">
-                  Traga um problema <span className="text-neon">difícil.</span>
+                  Me conta o problema. O diagnóstico é <span className="text-neon">comigo.</span>
                 </h2>
                 <p className="m-0 max-w-[44ch] text-lg leading-[1.6] text-paper/60">
-                  É assim que toda boa arquitetura começa. Aberto a oportunidades full-stack, implementação de
-                  sistemas e integrações — CLT, PJ ou remoto.
+                  Uma mensagem descrevendo o que está travando sua operação já é o suficiente pra
+                  começar. Full-stack, sistemas e integrações — PJ, freelance ou remoto.
                 </p>
                 <div className="flex flex-wrap gap-3.5">
                   <a
-                    href={`mailto:${PERSON.email}`}
+                    href={WA_LINK}
+                    target="_blank"
+                    rel="noopener"
                     className="inline-block bg-neon px-7 py-4 font-mono text-[13px] font-bold text-ink transition-all hover:bg-neon-bright hover:shadow-[0_0_34px_rgba(182,243,74,0.45)]"
                   >
-                    transmitir_mensagem()
+                    chamar_no_whatsapp()
+                  </a>
+                  <a
+                    href={`mailto:${PERSON.email}`}
+                    className="inline-block border border-paper/25 px-7 py-4 font-mono text-[13px] text-paper transition-colors hover:border-neon hover:text-neon"
+                  >
+                    e-mail
                   </a>
                   <a
                     href={PERSON.github}
@@ -469,9 +355,9 @@ function Home() {
                     kenzo@rede:~
                   </span>
                 </div>
-                <div className="px-6 py-[22px] font-mono text-[13px] leading-8 text-paper/80">
+                <div className="px-6 py-[22px] font-mono text-[13px] leading-[2.1] text-paper/80">
                   <div>
-                    <span className="text-neon">$</span> iniciar_conexao --alvo kenzo
+                    <span className="text-neon">$</span> iniciar_conexao --via whatsapp
                   </div>
                   <div className="text-paper/50">resolvendo nó… ok</div>
                   <div className="text-paper/50">handshake… ok</div>
@@ -480,7 +366,9 @@ function Home() {
                     <span className="text-neon">$</span> status
                   </div>
                   <div className="text-neon">
-                    disponível para novos sistemas
+                    {CONFIG.disponivel
+                      ? "disponível para novos sistemas"
+                      : "em projeto — respondo em até 24h"}
                     <span className="ml-1.5 inline-block h-[15px] w-2 animate-[blinkdot_1s_infinite] bg-neon align-middle" />
                   </div>
                 </div>
@@ -490,61 +378,15 @@ function Home() {
         </main>
 
         {/* FOOTER */}
-        <footer className="flex flex-col gap-4 border-t border-white/[0.07] bg-ink/70 px-6 py-7 md:px-12">
-          <nav aria-label="Mapa do site" className="flex flex-wrap items-center gap-x-6 gap-y-2">
-            {(
-              [
-                ["/sobre", "sobre"],
-                ["/construo", "construo"],
-                ["/projetos", "projetos"],
-                ["/laboratorio", "laboratório"],
-                ["/stack", "stack"],
-                ["/roadmap", "roadmap"],
-                ["/contato", "contato"],
-              ] as const
-            ).map(([to, label]) => (
-              <Link
-                key={to}
-                to={to}
-                className="font-mono text-[10px] tracking-[0.2em] text-paper/45 transition-colors hover:text-neon"
-              >
-                ./{label}
-              </Link>
-            ))}
-          </nav>
-          <div className="flex flex-col gap-2 md:flex-row md:items-center">
-            <span className="font-mono text-[11px] tracking-[0.14em] text-paper/45">
-              © {new Date().getFullYear()} kenzo.dev — renderizado em tempo real · 60fps
-            </span>
-            <span className="font-mono text-[11px] tracking-[0.14em] text-paper/45 md:ml-auto">
-              Henrique Kenzo Silvatte · Londrina-PR
-            </span>
-          </div>
+        <footer className="flex flex-col gap-2 border-t border-white/[0.07] bg-ink/70 px-6 py-7 md:flex-row md:items-center md:px-12">
+          <span className="font-mono text-[11px] tracking-[0.14em] text-paper/45">
+            © {new Date().getFullYear()} kenzo.dev — renderizado em tempo real · 60fps
+          </span>
+          <span className="font-mono text-[11px] tracking-[0.14em] text-paper/45 md:ml-auto">
+            Henrique Kenzo Silvatte · Londrina-PR
+          </span>
         </footer>
       </div>
-    </div>
-  );
-}
-
-function CaseLabel({ children }: { children: string }) {
-  return <span className="pt-0.5 font-mono text-[11px] text-paper/45">{children}</span>;
-}
-
-function LabLabel({ children }: { children: string }) {
-  return <span className="pt-0.5 font-mono text-[10px] text-paper/40">{children}</span>;
-}
-
-function TagRow({ tags }: { tags: string[] }) {
-  return (
-    <div className="flex flex-wrap gap-2">
-      {tags.map((t) => (
-        <span
-          key={t}
-          className="border border-white/[0.12] px-2.5 py-[5px] font-mono text-[10px] tracking-[0.1em] text-paper/70"
-        >
-          {t}
-        </span>
-      ))}
     </div>
   );
 }
@@ -556,33 +398,5 @@ function TrafficDots() {
       <span className="size-2 rounded-full bg-[rgba(255,189,46,0.7)]" />
       <span className="size-2 rounded-full bg-[rgba(39,201,63,0.7)]" />
     </>
-  );
-}
-
-function BrowserFrame({
-  label,
-  live,
-  className,
-  children,
-}: {
-  label: string;
-  live?: boolean;
-  className?: string;
-  children: React.ReactNode;
-}) {
-  return (
-    <div className={`border border-white/10 bg-[#0a0d0a] ${className ?? ""}`}>
-      <div className="flex items-center gap-1.5 border-b border-white/[0.08] px-3.5 py-2.5">
-        <TrafficDots />
-        <span className="ml-2.5 font-mono text-[10px] tracking-[0.12em] text-paper/40">{label}</span>
-        {live && (
-          <span className="ml-auto flex items-center gap-1.5 font-mono text-[10px] text-neon">
-            <span className="animate-blinkdot size-[5px] rounded-full bg-neon" />
-            LIVE
-          </span>
-        )}
-      </div>
-      {children}
-    </div>
   );
 }
