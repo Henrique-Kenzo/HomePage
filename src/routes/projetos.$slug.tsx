@@ -5,9 +5,7 @@ import { SiteFooter } from "@/components/site/SiteFooter";
 import { SectionLabel } from "@/components/site/SectionLabel";
 import { Reveal } from "@/components/site/Reveal";
 import { projects, type Project } from "@/content/projects";
-// PNG para og:image e JSON-LD (crawlers de preview não suportam WebP); WebP para exibição.
-import dashImg from "@/assets/minhafabrica-dashboard.png";
-import dashImgWebp from "@/assets/minhafabrica-dashboard.webp";
+import { ProjectShowcase } from "@/components/site/ProjectShowcase";
 import { seo, SITE_URL, absoluteUrl, PERSON, breadcrumbJsonLd } from "@/lib/site";
 
 export const Route = createFileRoute("/projetos/$slug")({
@@ -19,17 +17,15 @@ export const Route = createFileRoute("/projetos/$slug")({
   head: ({ loaderData }) => {
     if (!loaderData?.project) return { meta: [] };
     const p = loaderData.project;
-    const isMinhaFabrica = p.slug === "minhafabrica";
+
     const base = seo({
       title: `${p.name} — estudo de caso de ${p.category} · Henrique Kenzo`,
       description: `${p.tagline} Problema, solução, arquitetura e stack: ${p.stack.join(", ")}.`,
       path: `/projetos/${p.slug}`,
-      image: isMinhaFabrica ? dashImg : undefined,
-      imageWidth: isMinhaFabrica ? 1440 : undefined,
-      imageHeight: isMinhaFabrica ? 900 : undefined,
-      imageAlt: isMinhaFabrica
-        ? `Dashboard do ${p.name} — sistema desenvolvido por Henrique Kenzo`
-        : undefined,
+      image: p.ogImage,
+      imageWidth: p.hero?.width,
+      imageHeight: p.hero?.height,
+      imageAlt: p.hero?.alt,
       type: "article",
     });
     return {
@@ -44,7 +40,8 @@ export const Route = createFileRoute("/projetos/$slug")({
             description: p.tagline,
             url: absoluteUrl(`/projetos/${p.slug}`),
             programmingLanguage: p.stack,
-            ...(isMinhaFabrica ? { image: absoluteUrl(dashImg) } : {}),
+            ...(p.ogImage ? { image: absoluteUrl(p.ogImage) } : {}),
+            ...(p.externalLink ? { downloadUrl: p.externalLink.href } : {}),
             author: { "@type": "Person", "@id": `${SITE_URL}/#person`, name: PERSON.name },
           }),
         },
@@ -88,7 +85,6 @@ export const Route = createFileRoute("/projetos/$slug")({
 
 function ProjectDetail() {
   const { project } = Route.useLoaderData() as { project: Project };
-  const isMinhaFabrica = project.slug === "minhafabrica";
 
   return (
     <>
@@ -108,42 +104,21 @@ function ProjectDetail() {
                 <SectionLabel accent="accent">{project.category}</SectionLabel>
                 <h1 className="font-display text-5xl md:text-8xl">{project.name}</h1>
                 <p className="mt-6 max-w-2xl text-lg text-muted-foreground">{project.tagline}</p>
+                {project.externalLink && (
+                  <a
+                    href={project.externalLink.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-8 inline-flex items-center bg-primary px-6 py-4 font-mono text-xs font-bold uppercase tracking-[0.14em] text-primary-foreground transition-colors hover:bg-accent"
+                  >
+                    {project.externalLink.label} ↗
+                  </a>
+                )}
               </Reveal>
             </div>
           </section>
 
-          {isMinhaFabrica && (
-            <section className="px-6 pb-16">
-              <div className="mx-auto max-w-7xl">
-                <Reveal>
-                  <div className="relative group">
-                    <div className="absolute -inset-3 bg-gradient-to-r from-primary/30 to-accent/30 blur-2xl opacity-40 group-hover:opacity-70 transition-opacity duration-700" />
-                    <div className="relative overflow-hidden rounded-2xl border border-white/10 shadow-[0_30px_100px_-20px_rgba(0,0,0,0.9)]">
-                      <div className="flex items-center gap-1.5 border-b border-border bg-white/[0.02] px-4 py-2.5">
-                        <span className="size-2 rounded-full bg-red-500/60" />
-                        <span className="size-2 rounded-full bg-yellow-500/60" />
-                        <span className="size-2 rounded-full bg-green-500/60" />
-                        <span className="font-mono text-[10px] uppercase tracking-widest text-muted ml-3">
-                          minhafabrica.com · online · vercel
-                        </span>
-                        <span className="ml-auto flex items-center gap-1.5 font-mono text-[10px] text-primary">
-                          <span className="size-1.5 rounded-full bg-primary animate-pulse-soft" /> LIVE
-                        </span>
-                      </div>
-                      <img
-                        src={dashImgWebp}
-                        alt={`Dashboard do ${project.name}`}
-                        width={1440}
-                        height={900}
-                        loading="eager"
-                        className="block h-auto w-full"
-                      />
-                    </div>
-                  </div>
-                </Reveal>
-              </div>
-            </section>
-          )}
+          <ProjectShowcase project={project} />
 
           <section className="px-6 py-16">
             <div className="mx-auto max-w-6xl grid gap-12 md:grid-cols-2">

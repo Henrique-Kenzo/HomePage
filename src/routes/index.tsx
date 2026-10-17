@@ -3,6 +3,8 @@ import { FxNeural } from "@/components/site/FxNeural";
 import { seo, PERSON } from "@/lib/site";
 import minhafabricaImg from "@/assets/minhafabrica-dashboard.webp";
 import visionprodImg from "@/assets/visionprod-dashboard.webp";
+import nomerisPdvImg from "@/assets/nomeris-pdv.webp";
+import { NOMERIS_RELEASE_README_URL } from "@/content/projects";
 
 export const Route = createFileRoute("/")({
   head: () =>
@@ -42,8 +44,7 @@ const dores = [
   {
     tag: "sem visibilidade",
     problema: "Decisão tomada no escuro, número descoberto tarde.",
-    saida:
-      "Painéis e ERP com o número certo na tela, em tempo real. Quem opera enxerga; quem decide confia.",
+    saida: "Painéis e ERP com o número certo na tela, em tempo real. Quem opera enxerga; quem decide confia.",
     stack: "React · FastAPI · PostgreSQL",
   },
   {
@@ -55,11 +56,39 @@ const dores = [
   },
 ];
 
-const sistemas = [
+type FeaturedSystem = {
+  nome: string;
+  label: string;
+  descricao: string;
+  img: string;
+  alt: string;
+  width: number;
+  height: number;
+  status?: string;
+  href?: string;
+  cta?: string;
+  caseStudy?: string;
+};
+
+const sistemas: FeaturedSystem[] = [
+  {
+    nome: "Nomeris",
+    label: "nomeris · windows · operação local",
+    status: "PRÉ-LANÇAMENTO",
+    descricao:
+      "PDV desktop com pagamentos mistos, caixa, estoque, auditoria e backup local. Operação offline com licença válida; a renovação exige conexão.",
+    img: nomerisPdvImg,
+    alt: "Frente de caixa do Nomeris pronta para receber uma venda",
+    width: 1708,
+    height: 960,
+    href: NOMERIS_RELEASE_README_URL,
+    cta: "ver release e instruções",
+    caseStudy: "/projetos/nomeris",
+  },
   {
     nome: "MinhaFabrica",
     label: "minhafabrica.com · online",
-    live: true,
+    status: "LIVE",
     descricao:
       "Operação industrial sem visibilidade centralizada → painel completo com autenticação, usuários e produtos. Node.js · Next.js · MongoDB.",
     img: minhafabricaImg,
@@ -70,7 +99,7 @@ const sistemas = [
   {
     nome: "Vision Pro",
     label: "visionprod · dashboard",
-    live: false,
+
     descricao:
       "Dados corporativos sem ferramenta robusta → plataforma de gestão e monitoramento. Python · FastAPI · PostgreSQL · Docker.",
     img: visionprodImg,
@@ -156,18 +185,16 @@ function Home() {
                 className="animate-fade-up m-0 max-w-[15ch] text-[clamp(48px,6.5vw,92px)] font-bold leading-none tracking-[-0.03em]"
                 style={{ animationDelay: "0.08s" }}
               >
-                <span className="sr-only">
-                  Henrique Kenzo, desenvolvedor de software full-stack —{" "}
-                </span>
+                <span className="sr-only">Henrique Kenzo, desenvolvedor de software full-stack — </span>
                 Sintoma qualquer um vê. Eu resolvo <span className="text-neon">a causa.</span>
               </h1>
               <p
                 className="animate-fade-up m-0 max-w-[52ch] text-[19px] leading-[1.6] text-paper/60"
                 style={{ animationDelay: "0.16s" }}
               >
-                Henrique Kenzo · engenharia full-stack. ERPs industriais, automação, integrações e
-                pipelines de IA — sistemas que continuam funcionando depois que o deploy acaba. Node,
-                Python e React, do banco ao pixel.
+                Henrique Kenzo · engenharia full-stack. ERPs industriais, automação, integrações e pipelines
+                de IA — sistemas que continuam funcionando depois que o deploy acaba. Node, Python e React, do
+                banco ao pixel.
               </p>
               <div className="animate-fade-up flex flex-wrap gap-3.5" style={{ animationDelay: "0.24s" }}>
                 <a
@@ -218,25 +245,23 @@ function Home() {
                     </div>
                     <div className="text-lg font-bold leading-[1.3]">{dor.problema}</div>
                     <div className="text-sm leading-[1.6] text-paper/65">{dor.saida}</div>
-                    <div className="mt-auto pt-2 font-mono text-[11px] text-paper/50">
-                      → {dor.stack}
-                    </div>
+                    <div className="mt-auto pt-2 font-mono text-[11px] text-paper/50">→ {dor.stack}</div>
                   </article>
                 ))}
               </div>
             </div>
           </section>
 
-          {/* PROVA EM PRODUÇÃO */}
+          {/* PROJETOS EM DESTAQUE */}
           {CONFIG.mostrarSistemas && (
             <section id="producao" className="border-t border-white/[0.07] px-6 py-[120px] md:px-12">
               <div className="mx-auto flex max-w-[1200px] flex-col gap-14">
                 <div className="flex flex-col gap-3.5">
                   <div className="font-mono text-[11px] uppercase tracking-[0.3em] text-neon">
-                    ./producao — não é mockup
+                    ./projetos — interfaces reais
                   </div>
                   <h2 className="m-0 max-w-[22ch] text-[clamp(34px,4vw,52px)] font-bold tracking-[-0.02em]">
-                    Sistemas rodando agora, com usuário de verdade.
+                    Software construído para problemas reais.
                   </h2>
                 </div>
                 <div className="grid gap-3.5 md:grid-cols-[repeat(auto-fit,minmax(380px,1fr))]">
@@ -245,15 +270,15 @@ function Home() {
                       key={s.nome}
                       className="flex flex-col border border-white/10 bg-[#0a0d0a] transition-colors hover:border-neon/40"
                     >
-                      <div className="flex items-center gap-1.5 border-b border-white/[0.08] px-3.5 py-2.5">
+                      <div className="flex flex-wrap items-center gap-1.5 border-b border-white/[0.08] px-3.5 py-2.5">
                         <TrafficDots />
                         <span className="ml-2.5 font-mono text-[10px] tracking-[0.12em] text-paper/40">
                           {s.label}
                         </span>
-                        {s.live && (
+                        {s.status && (
                           <span className="ml-auto flex items-center gap-1.5 font-mono text-[10px] text-neon">
                             <span className="animate-blinkdot size-[5px] rounded-full bg-neon" />
-                            LIVE
+                            {s.status}
                           </span>
                         )}
                       </div>
@@ -268,6 +293,24 @@ function Home() {
                       <div className="flex flex-col gap-2 px-6 py-5">
                         <div className="text-xl font-bold">{s.nome}</div>
                         <div className="text-[13.5px] leading-[1.6] text-paper/65">{s.descricao}</div>
+                        {s.caseStudy && (
+                          <a
+                            href={s.caseStudy}
+                            className="mt-2 self-start font-mono text-[11px] uppercase tracking-[0.16em] text-neon transition-colors hover:text-neon-bright"
+                          >
+                            ver estudo de caso →
+                          </a>
+                        )}
+                        {s.href && s.cta && (
+                          <a
+                            href={s.href}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="mt-2 self-start font-mono text-[11px] uppercase tracking-[0.16em] text-neon transition-colors hover:text-neon-bright"
+                          >
+                            {s.cta} ↗
+                          </a>
+                        )}
                       </div>
                     </article>
                   ))}
@@ -312,8 +355,8 @@ function Home() {
                   Me conta o problema. O diagnóstico é <span className="text-neon">comigo.</span>
                 </h2>
                 <p className="m-0 max-w-[44ch] text-lg leading-[1.6] text-paper/60">
-                  Uma mensagem descrevendo o que está travando sua operação já é o suficiente pra
-                  começar. Full-stack, sistemas e integrações — PJ, freelance ou remoto.
+                  Uma mensagem descrevendo o que está travando sua operação já é o suficiente pra começar.
+                  Full-stack, sistemas e integrações — PJ, freelance ou remoto.
                 </p>
                 <div className="flex flex-wrap gap-3.5">
                   <a
