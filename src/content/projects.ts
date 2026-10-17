@@ -1,3 +1,22 @@
+import minhafabricaDashboardPng from "@/assets/minhafabrica-dashboard.png";
+import minhafabricaDashboardWebp from "@/assets/minhafabrica-dashboard.webp";
+import nomerisPdvPng from "@/assets/nomeris-pdv.png";
+import nomerisPdvWebp from "@/assets/nomeris-pdv.webp";
+import nomerisProdutosWebp from "@/assets/nomeris-produtos.webp";
+import nomerisCaixaWebp from "@/assets/nomeris-caixa.webp";
+import nomerisVisaoGerencialWebp from "@/assets/nomeris-visao-gerencial.webp";
+
+export const NOMERIS_RELEASE_README_URL =
+  "https://github.com/Henrique-Kenzo/Nomeris-Releases/blob/main/README.md";
+
+export type ProjectMedia = {
+  src: string;
+  alt: string;
+  width: number;
+  height: number;
+  caption?: string;
+};
+
 export type Project = {
   slug: string;
   name: string;
@@ -8,15 +27,112 @@ export type Project = {
   architecture: string[];
   result: { value: string; label: string }[];
   stack: string[];
+  status?: string;
+  hero?: ProjectMedia;
+  ogImage?: string;
+  gallery?: ProjectMedia[];
+  highlights?: { label: string; title: string; description: string }[];
+  externalLink?: { label: string; href: string };
 };
 
 export const projects: Project[] = [
+  {
+    slug: "nomeris",
+    name: "Nomeris",
+    tagline:
+      "PDV desktop para distribuidoras de bebidas: vendas, caixa e estoque com dados locais e operação offline durante a validade da licença.",
+    category: "Produto desktop",
+    status: "Pré-lançamento · Windows · operação local",
+    problem:
+      "Distribuidoras precisam atender rápido no balcão sem perder o controle de estoque, caixa e pós-venda — inclusive quando a conexão cai.",
+    solution:
+      "Aplicativo desktop com código de barras, pagamentos mistos, estoque por embalagem, devoluções, trocas, relatórios, auditoria e backup local. A operação offline exige licença assinada válida e é bloqueada quando ela expira; a renovação requer conexão. Pré-lançamento com instalador sem assinatura Authenticode e sem emissão fiscal.",
+    architecture: [
+      "Electron dividido em Main, preload e renderer isolado",
+      "IPC com allowlist, validação Zod e RBAC no processo Main",
+      "MongoDB local com transações e replica set embutido",
+      "Atualização, backup e restauração integrados ao aplicativo",
+    ],
+    result: [
+      { value: "Local", label: "Dados e backup no dispositivo" },
+      { value: "Commit", label: "Dinheiro e estoque consistentes" },
+    ],
+    stack: ["Electron", "React", "TypeScript", "MongoDB", "Zod", "Playwright"],
+    hero: {
+      src: nomerisPdvWebp,
+      alt: "Frente de caixa do Nomeris com três produtos no carrinho e total pronto para receber",
+      width: 1708,
+      height: 960,
+      caption: "Frente de caixa para teclado, leitor de código de barras e atendimento no balcão.",
+    },
+    ogImage: nomerisPdvPng,
+    gallery: [
+      {
+        src: nomerisProdutosWebp,
+        alt: "Catálogo de produtos do Nomeris com embalagens, códigos de barras, preços e estoque",
+        width: 1708,
+        height: 960,
+        caption: "Catálogo com múltiplas embalagens e estoque em unidade base.",
+      },
+      {
+        src: nomerisCaixaWebp,
+        alt: "Controle de caixa do Nomeris com abertura, sangria, suprimento e conferência",
+        width: 1708,
+        height: 960,
+        caption: "Caixa auditável do valor inicial ao fechamento.",
+      },
+      {
+        src: nomerisVisaoGerencialWebp,
+        alt: "Visão gerencial do Nomeris com entradas, saídas, saldo e ranking de produtos",
+        width: 1708,
+        height: 960,
+        caption: "Indicadores do período e desempenho dos produtos em uma tela gerencial.",
+      },
+    ],
+    highlights: [
+      {
+        label: "01 // Balcão",
+        title: "Venda sem atrito",
+        description:
+          "Leitor de código de barras, busca rápida, atalhos, pagamentos mistos, troco e suspensão de venda.",
+      },
+      {
+        label: "02 // Consistência",
+        title: "Dinheiro e estoque transacionais",
+        description: "Checkout, cancelamento, devolução e troca só respondem depois do commit no banco.",
+      },
+      {
+        label: "03 // Segurança",
+        title: "Permissão no lugar certo",
+        description:
+          "Renderer isolado, canais IPC permitidos explicitamente e RBAC validado no processo privilegiado.",
+      },
+      {
+        label: "04 // Continuidade",
+        title: "Operação local de verdade",
+        description:
+          "Banco, backup e restauração locais. Sem internet enquanto a licença assinada estiver válida; a expiração bloqueia a operação até a renovação online.",
+      },
+    ],
+    externalLink: {
+      label: "Ver download e instruções",
+      href: NOMERIS_RELEASE_README_URL,
+    },
+  },
   {
     slug: "minhafabrica",
     name: "MinhaFabrica - Desafio Técnico",
     tagline:
       "Plataforma administrativa fullstack com autenticação JWT e gestão (CRUD) de Usuários e Produtos.",
     category: "Full-Stack Web",
+    status: "minhafabrica.com · online · vercel",
+    hero: {
+      src: minhafabricaDashboardWebp,
+      alt: "Dashboard do MinhaFabrica com indicadores e gestão administrativa",
+      width: 1440,
+      height: 900,
+    },
+    ogImage: minhafabricaDashboardPng,
     problem:
       "Desenvolver uma solução completa e funcional para um processo seletivo, demonstrando habilidades E2E.",
     solution:
