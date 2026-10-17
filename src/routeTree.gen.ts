@@ -9,39 +9,19 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as StackRouteImport } from './routes/stack'
-import { Route as SobreRouteImport } from './routes/sobre'
-import { Route as RoadmapRouteImport } from './routes/roadmap'
-import { Route as LaboratorioRouteImport } from './routes/laboratorio'
-import { Route as ContatoRouteImport } from './routes/contato'
-import { Route as ConstruoRouteImport } from './routes/construo'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ConstruoRouteImport } from './routes/construo'
+import { Route as ContatoRouteImport } from './routes/contato'
+import { Route as LaboratorioRouteImport } from './routes/laboratorio'
+import { Route as RoadmapRouteImport } from './routes/roadmap'
+import { Route as SobreRouteImport } from './routes/sobre'
+import { Route as StackRouteImport } from './routes/stack'
 import { Route as ProjetosIndexRouteImport } from './routes/projetos.index'
 import { Route as ProjetosSlugRouteImport } from './routes/projetos.$slug'
 
-const StackRoute = StackRouteImport.update({
-  id: '/stack',
-  path: '/stack',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const SobreRoute = SobreRouteImport.update({
-  id: '/sobre',
-  path: '/sobre',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const RoadmapRoute = RoadmapRouteImport.update({
-  id: '/roadmap',
-  path: '/roadmap',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const LaboratorioRoute = LaboratorioRouteImport.update({
-  id: '/laboratorio',
-  path: '/laboratorio',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ContatoRoute = ContatoRouteImport.update({
-  id: '/contato',
-  path: '/contato',
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ConstruoRoute = ConstruoRouteImport.update({
@@ -49,9 +29,29 @@ const ConstruoRoute = ConstruoRouteImport.update({
   path: '/construo',
   getParentRoute: () => rootRouteImport,
 } as any)
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
+const ContatoRoute = ContatoRouteImport.update({
+  id: '/contato',
+  path: '/contato',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LaboratorioRoute = LaboratorioRouteImport.update({
+  id: '/laboratorio',
+  path: '/laboratorio',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RoadmapRoute = RoadmapRouteImport.update({
+  id: '/roadmap',
+  path: '/roadmap',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SobreRoute = SobreRouteImport.update({
+  id: '/sobre',
+  path: '/sobre',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StackRoute = StackRouteImport.update({
+  id: '/stack',
+  path: '/stack',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ProjetosIndexRoute = ProjetosIndexRouteImport.update({
@@ -149,39 +149,11 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/stack': {
-      id: '/stack'
-      path: '/stack'
-      fullPath: '/stack'
-      preLoaderRoute: typeof StackRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/sobre': {
-      id: '/sobre'
-      path: '/sobre'
-      fullPath: '/sobre'
-      preLoaderRoute: typeof SobreRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/roadmap': {
-      id: '/roadmap'
-      path: '/roadmap'
-      fullPath: '/roadmap'
-      preLoaderRoute: typeof RoadmapRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/laboratorio': {
-      id: '/laboratorio'
-      path: '/laboratorio'
-      fullPath: '/laboratorio'
-      preLoaderRoute: typeof LaboratorioRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/contato': {
-      id: '/contato'
-      path: '/contato'
-      fullPath: '/contato'
-      preLoaderRoute: typeof ContatoRouteImport
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/construo': {
@@ -191,11 +163,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ConstruoRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
+    '/contato': {
+      id: '/contato'
+      path: '/contato'
+      fullPath: '/contato'
+      preLoaderRoute: typeof ContatoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/laboratorio': {
+      id: '/laboratorio'
+      path: '/laboratorio'
+      fullPath: '/laboratorio'
+      preLoaderRoute: typeof LaboratorioRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/roadmap': {
+      id: '/roadmap'
+      path: '/roadmap'
+      fullPath: '/roadmap'
+      preLoaderRoute: typeof RoadmapRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sobre': {
+      id: '/sobre'
+      path: '/sobre'
+      fullPath: '/sobre'
+      preLoaderRoute: typeof SobreRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/stack': {
+      id: '/stack'
+      path: '/stack'
+      fullPath: '/stack'
+      preLoaderRoute: typeof StackRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/projetos/': {
