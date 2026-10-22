@@ -21,19 +21,8 @@ describe("ProjectShowcase", () => {
     expect(html.indexOf("Venda sem atrito")).toBeLessThan(html.indexOf("Catálogo de produtos"));
   });
 
-  it("preserves the MinhaFabrica screenshot through the generic model", () => {
-    const project = projects.find((item) => item.slug === "minhafabrica")!;
-    const html = renderToStaticMarkup(<ProjectShowcase project={project} />);
-    expect(html).toContain("minhafabrica-dashboard.webp");
-    expect(html).toContain('width="1440" height="900"');
-    expect(html).toContain("minhafabrica.com · online · vercel");
-    expect(html.match(/<figure/g)).toHaveLength(1);
-    expect(html).not.toContain("Release oficial");
-    expect(html).not.toContain("Galeria do projeto");
-  });
-
   it("does not invent rich sections for older projects without media", () => {
-    for (const project of projects.filter((item) => !["nomeris", "minhafabrica"].includes(item.slug))) {
+    for (const project of projects.filter((item) => item.slug !== "nomeris")) {
       expect(renderToStaticMarkup(<ProjectShowcase project={project} />)).toBe("");
     }
   });

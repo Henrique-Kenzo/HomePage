@@ -20,31 +20,22 @@ describe("project detail integration", () => {
     expect(html).toContain('href="/projetos/nomeris"');
     expect(html.match(/<h2[^>]*>(.*?)<\/h2>/)?.[1]).toBe("Nomeris");
     expect(html.indexOf('href="/projetos/nomeris"')).toBeLessThan(
-      html.indexOf('href="/projetos/minhafabrica"'),
+      html.indexOf('href="/projetos/vision-pro"'),
     );
     expect(html).toContain("Dinheiro e estoque consistentes");
   });
-  it("features Nomeris first on the home without implying production availability", async () => {
+  it("features Nomeris first on the home as a product in production", async () => {
     const { html } = await renderPage("/");
     const cards = html.match(/<article[\s\S]*?<\/article>/g) ?? [];
-    const systems = cards.filter((card) => /Nomeris|MinhaFabrica|Vision Pro/.test(card));
-    expect(systems).toHaveLength(3);
+    const systems = cards.filter((card) => /Nomeris|Vision Pro/.test(card));
+    expect(systems).toHaveLength(2);
     expect(systems[0]).toContain("Nomeris");
-    expect(systems[0]).toContain("Pré-lançamento");
-    expect(systems[0]).not.toContain("No ar");
+    expect(systems[0]).toContain("Em produção");
     expect(systems[0]).toContain(`href="${NOMERIS_RELEASE_README_URL}"`);
     expect(systems[0]).toContain('rel="noopener noreferrer"');
     expect(systems[0]).toContain('href="/projetos/nomeris"');
     expect(systems[0]).toContain("licença válida");
-    expect(html).not.toContain("Sistemas rodando agora, com usuário de verdade.");
-  });
-
-  it("retains the MinhaFabrica media and metadata on the detail route", async () => {
-    const { html } = await renderPage("/projetos/minhafabrica");
-    expect(html).toContain("minhafabrica-dashboard.webp");
-    expect(html).toContain("minhafabrica-dashboard.png");
-    expect(html.match(/<figure/g)).toHaveLength(1);
-    expect(html).not.toContain("downloadUrl");
+    expect(html).not.toMatch(/minha ?fabrica/i);
   });
 
   it("keeps a media-free case study usable", async () => {

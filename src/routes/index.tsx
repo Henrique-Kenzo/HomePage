@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
-import { HomeField, PARTICLES, SEED, SHAPE_NAMES, glyph, type FieldState } from "@/components/site/HomeField";
+import { HomeField, SEED, SHAPE_NAMES, glyph, type FieldState } from "@/components/site/HomeField";
 import { seo, PERSON } from "@/lib/site";
 import { NOMERIS_RELEASE_README_URL } from "@/content/projects";
 
@@ -76,7 +76,7 @@ const sistemas: FeaturedSystem[] = [
   {
     nome: "Nomeris",
     area: "Desktop · Varejo",
-    status: { label: "Pré-lançamento", tone: "pre" },
+    status: { label: "Em produção", tone: "live" },
     descricao:
       "PDV desktop para Windows: pagamentos mistos, caixa, estoque, trilha de auditoria e backup local. Funciona offline com licença válida; a renovação exige conexão.",
     stack: "Aplicação desktop · Windows",
@@ -84,15 +84,6 @@ const sistemas: FeaturedSystem[] = [
     href: NOMERIS_RELEASE_README_URL,
     cta: "Release e instruções",
     caseStudy: "/projetos/nomeris",
-  },
-  {
-    nome: "MinhaFabrica",
-    area: "Web · Indústria",
-    status: { label: "No ar", tone: "live" },
-    descricao:
-      "Dashboard de operações industriais com autenticação, gestão de usuários e cadastro de produtos.",
-    stack: "Node.js · Next.js · MongoDB",
-    arte: glyph(3, 0.3, SEED + 11),
   },
   {
     nome: "Vision Pro",
@@ -119,21 +110,16 @@ const NAV = [
   ["contato", "05", "Contato"],
 ] as const;
 
-// o preloader só toca na primeira entrada; navegações de volta à home pulam direto
-let introPlayed = false;
-
 function Home() {
-  const [skip] = useState(() => introPlayed);
   const [armed, setArmed] = useState(false);
   const [rv, setRv] = useState<Record<string, boolean>>({});
-  const [field, setField] = useState<FieldState>({ prog: 0, active: "topo", shape: 0 });
+  const [field, setField] = useState<FieldState>({ prog: 0, active: "topo", shape: 0, count: 3800 });
   const countRef = useRef<HTMLSpanElement>(null);
   const barRef = useRef<HTMLDivElement>(null);
 
   // preloader: o CSS cuida da saída; aqui só o contador 000→100
   useEffect(() => {
-    introPlayed = true;
-    if (skip || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const t0 = performance.now();
     let raf = 0;
     const tick = (now: number) => {
@@ -145,7 +131,7 @@ function Home() {
     };
     raf = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(raf);
-  }, [skip]);
+  }, []);
 
   // revelação por scroll — sem JS ou com movimento reduzido, tudo já aparece
   useEffect(() => {
@@ -174,7 +160,7 @@ function Home() {
 
   return (
     <div
-      className={`hk relative min-h-screen overflow-x-hidden bg-hk-bg font-inter text-base leading-[1.6] text-hk-fg ${armed ? "armed" : ""} ${skip ? "skip" : ""}`}
+      className={`hk relative min-h-screen overflow-x-hidden bg-hk-bg font-inter text-base leading-[1.6] text-hk-fg ${armed ? "armed" : ""}`}
     >
       {/* preloader */}
       <div className="hk-loader" aria-hidden>
@@ -197,7 +183,7 @@ function Home() {
         </div>
       </div>
 
-      <HomeField onChange={setField} />
+      <HomeField introDelay={1700} onChange={setField} />
 
       {/* trilho esquerdo */}
       <nav className="hk-rail left-7 flex flex-col gap-0.5 font-mono" aria-label="Navegação lateral">
@@ -263,7 +249,7 @@ function Home() {
             className="relative mx-auto flex min-h-[calc(100vh-85px)] max-w-[1200px] flex-col justify-center gap-14 px-8"
           >
             <div className="flex flex-wrap items-center gap-14 pt-[72px]">
-              <div className="flex min-w-0 flex-[1_1_520px] flex-col gap-7">
+              <div className="flex min-w-0 flex-[1_1_480px] flex-col gap-7">
                 <div
                   className="hk-intro flex items-center gap-3 font-mono text-[13px] text-hk-dim"
                   style={{ "--d": "0.1s" } as CSSProperties}
@@ -303,7 +289,8 @@ function Home() {
                 </div>
               </div>
               <div
-                className="hk-intro relative hidden h-[440px] min-w-0 flex-[1_1_380px] font-mono text-[11px] text-hk-faint min-[761px]:block"
+                id="hk-hud"
+                className="hk-intro relative hidden h-[560px] min-w-0 flex-[1_1_420px] font-mono text-[11px] text-hk-faint min-[761px]:block"
                 style={{ "--d": "1s" } as CSSProperties}
                 aria-hidden
               >
@@ -315,11 +302,11 @@ function Home() {
                   <span className="hk-pulse size-1.5 rounded-full bg-hk-acc" />
                   render · ao vivo
                 </span>
-                <span className="absolute right-[26px] top-0">{PARTICLES.toLocaleString("pt-BR")} pts</span>
-                <span className="absolute -bottom-0.5 left-[26px]">fig. 01 — {shapeName}</span>
-                <span className="absolute -bottom-0.5 right-[26px]">
-                  seed {String(SEED).padStart(4, "0")}
+                <span className="absolute right-[26px] top-0">
+                  {field.count.toLocaleString("pt-BR")} caracteres
                 </span>
+                <span className="absolute -bottom-0.5 left-[26px]">fig. 01 — {shapeName}</span>
+                <span className="absolute -bottom-0.5 right-[26px]">mova o cursor · clique</span>
               </div>
             </div>
             <div

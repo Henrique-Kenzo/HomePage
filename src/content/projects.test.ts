@@ -17,8 +17,7 @@ describe("Nomeris project contract", () => {
     expect(nomeris?.gallery).toHaveLength(3);
     expect(nomeris?.highlights).toHaveLength(4);
     expect(nomeris?.result).toContainEqual({ value: "Commit", label: "Dinheiro e estoque consistentes" });
-    expect(nomeris?.status).toContain("Pré-lançamento");
+    expect(nomeris?.status).toContain("Em produção");
     expect(nomeris?.solution).toContain("licença");
-    expect(nomeris?.solution).toContain("fiscal");
   });
 });

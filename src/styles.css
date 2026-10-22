@@ -176,9 +176,7 @@
 /* preloader — sai só por CSS (não depende do bundle); o JS apenas anima o contador */
 @keyframes hk-loader-out { to { transform: translateY(-100%); visibility: hidden; } }
 .hk { --hk-d: 1.7s; }
-.hk.skip { --hk-d: 0s; }
 .hk-loader { position: fixed; inset: 0; z-index: 100; background: var(--color-hk-bg); display: flex; flex-direction: column; justify-content: flex-end; padding: 40px; animation: hk-loader-out 1.1s cubic-bezier(0.76, 0, 0.24, 1) var(--hk-d) forwards; }
-.hk.skip .hk-loader { display: none; }
 
 /* entrada do hero, só depois do preloader */
 .hk-mask { display: inline-block; overflow: hidden; vertical-align: top; padding-bottom: 0.1em; margin-bottom: -0.1em; }

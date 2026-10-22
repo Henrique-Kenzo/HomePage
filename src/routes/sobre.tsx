@@ -53,7 +53,7 @@ const stages = [
   {
     id: "03",
     title: "Engenheiro de Software",
-    desc: "Desenvolvendo sistemas industriais críticos (minhafabrica.com e VisionProd). Arquitetando o backend de ERPs com regras de negócio complexas e integrando modelos de Machine Learning (Visão Computacional) para processamento de câmeras em linhas de produção.",
+    desc: "Desenvolvendo sistemas industriais críticos (ERP industrial e VisionProd). Arquitetando o backend de ERPs com regras de negócio complexas e integrando modelos de Machine Learning (Visão Computacional) para processamento de câmeras em linhas de produção.",
     tech: ["Node.js", "Python", "Machine Learning", "ERP"],
     accent: true,
   },

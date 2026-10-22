@@ -1,5 +1,3 @@
-import minhafabricaDashboardPng from "@/assets/minhafabrica-dashboard.png";
-import minhafabricaDashboardWebp from "@/assets/minhafabrica-dashboard.webp";
 import nomerisPdvPng from "@/assets/nomeris-pdv.png";
 import nomerisPdvWebp from "@/assets/nomeris-pdv.webp";
 import nomerisProdutosWebp from "@/assets/nomeris-produtos.webp";
@@ -42,11 +40,11 @@ export const projects: Project[] = [
     tagline:
       "PDV desktop para distribuidoras de bebidas: vendas, caixa e estoque com dados locais e operação offline durante a validade da licença.",
     category: "Produto desktop",
-    status: "Pré-lançamento · Windows · operação local",
+    status: "Em produção · Windows · operação local",
     problem:
       "Distribuidoras precisam atender rápido no balcão sem perder o controle de estoque, caixa e pós-venda — inclusive quando a conexão cai.",
     solution:
-      "Aplicativo desktop com código de barras, pagamentos mistos, estoque por embalagem, devoluções, trocas, relatórios, auditoria e backup local. A operação offline exige licença assinada válida e é bloqueada quando ela expira; a renovação requer conexão. Pré-lançamento com instalador sem assinatura Authenticode e sem emissão fiscal.",
+      "Aplicativo desktop com código de barras, pagamentos mistos, estoque por embalagem, devoluções, trocas, relatórios, auditoria e backup local. A operação offline exige licença assinada válida e é bloqueada quando ela expira; a renovação requer conexão.",
     architecture: [
       "Electron dividido em Main, preload e renderer isolado",
       "IPC com allowlist, validação Zod e RBAC no processo Main",
@@ -118,37 +116,6 @@ export const projects: Project[] = [
       label: "Ver download e instruções",
       href: NOMERIS_RELEASE_README_URL,
     },
-  },
-  {
-    slug: "minhafabrica",
-    name: "MinhaFabrica - Desafio Técnico",
-    tagline:
-      "Plataforma administrativa fullstack com autenticação JWT e gestão (CRUD) de Usuários e Produtos.",
-    category: "Full-Stack Web",
-    status: "minhafabrica.com · online · vercel",
-    hero: {
-      src: minhafabricaDashboardWebp,
-      alt: "Dashboard do MinhaFabrica com indicadores e gestão administrativa",
-      width: 1440,
-      height: 900,
-    },
-    ogImage: minhafabricaDashboardPng,
-    problem:
-      "Desenvolver uma solução completa e funcional para um processo seletivo, demonstrando habilidades E2E.",
-    solution:
-      "Criação de um painel administrativo com separação de responsabilidades (backend/frontend), TypeScript para tipagem segura, e autenticação robusta.",
-    architecture: [
-      "Front/back separados",
-      "Camadas controllers/services/models",
-      "MongoDB",
-      "Node.js API",
-      "Next.js Interface",
-    ],
-    result: [
-      { value: "Online", label: "Hospedado na Vercel" },
-      { value: "Full-Stack", label: "Sistema E2E" },
-    ],
-    stack: ["Next.js", "Node.js", "Express", "MongoDB", "JWT", "TypeScript"],
   },
   {
     slug: "billsmap",
