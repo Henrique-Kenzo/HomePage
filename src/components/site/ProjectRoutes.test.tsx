@@ -30,8 +30,8 @@ describe("project detail integration", () => {
     const systems = cards.filter((card) => /Nomeris|MinhaFabrica|Vision Pro/.test(card));
     expect(systems).toHaveLength(3);
     expect(systems[0]).toContain("Nomeris");
-    expect(systems[0]).toContain("PRÉ-LANÇAMENTO");
-    expect(systems[0]).not.toContain("LIVE");
+    expect(systems[0]).toContain("Pré-lançamento");
+    expect(systems[0]).not.toContain("No ar");
     expect(systems[0]).toContain(`href="${NOMERIS_RELEASE_README_URL}"`);
     expect(systems[0]).toContain('rel="noopener noreferrer"');
     expect(systems[0]).toContain('href="/projetos/nomeris"');

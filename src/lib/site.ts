@@ -11,7 +11,7 @@ export const SITE_NAME = "kenzo.dev";
 
 export const PERSON = {
   name: "Henrique Kenzo Silvatte",
-  alternateName: ["Henrique Kenzo", "Kenzo", "kenzo.dev", "Kenzo Dev"],
+  alternateName: ["Henrique Kenzo", "Kenzo", "kenzo.dev", "Kenzo Dev", "Kenzo Desenvolvedor", "Kenzo Tech"],
   jobTitle: "Engenheiro de Software Full-Stack",
   email: "henrique.silvatte2@gmail.com",
   city: "Londrina",
@@ -21,6 +21,7 @@ export const PERSON = {
   linkedin: "https://linkedin.com/in/henrique-kenzo-silvatte-33466220b",
   knowsAbout: [
     "Desenvolvimento de software",
+    "SaaS",
     "Sistemas web full-stack",
     "Node.js",
     "TypeScript",
@@ -135,7 +136,7 @@ export function webSiteJsonLd() {
     "@type": "WebSite",
     "@id": `${SITE_URL}/#website`,
     name: SITE_NAME,
-    alternateName: ["Henrique Kenzo", "Henrique Kenzo Silvatte — Portfólio"],
+    alternateName: ["Kenzo Dev", "Henrique Kenzo", "Henrique Kenzo Silvatte — Portfólio"],
     url: SITE_URL,
     inLanguage: "pt-BR",
     author: { "@id": `${SITE_URL}/#person` },
